@@ -1,0 +1,21 @@
+<script>
+    $(document).
+</script>
+
+
+
+
+
+
+<h1>{{results.0.laundromatName}}</h1>
+<h1>{{results.0.laundromatAddress}}</h1>
+    
+
+{{#if isClaimed}}
+
+    <div class="container">
+        <p>this business is claimed.</p>
+        <p>current price per pound:{{results.0.pricePerPound}}</p>
+        <a href="/newOrder/name={{results.0.laundromatName}}address={{results.0.laundromatAddress}}"><button>Start an order!</button></a>
+    </div>
+{{/if}}

@@ -1,0 +1,218 @@
+<script>
+    $(document).ready(function(){
+
+        let userEmail;
+        var status;
+
+        $.ajax({url:'/api/userData', success: function(res){
+            userEmail=res.userEmail
+            status=res.status;
+            console.log("oirhgejio");
+            console.log(userEmail);
+        }});
+
+
+
+
+        $.ajax({url:'/api/orders/userOrder', success: function(result){
+            console.log(result);
+            //$("#first").html(JSON.stringify(result));
+            //$("#first").html(userEmail);
+
+
+            if(status=="customer"){
+                let header="<th>Order ID</th><th>Order Date</th><th>Order status</th><th>laundromat name</th><th>laundromat email</th><th>laundromat address</th><th>Actions</th>";
+                $("#th").html(header);
+            }else{
+                let header="<th>Order ID</th><th>Order Date</th><th>Order status</th><th>Customer name</th><th>Cusomter email</th><th>Customer address</th><th>Actions</th>";
+                $("#th").html(header);
+            }
+
+
+
+            let body="";
+
+
+            for(let i=0;i<result.length;i++){
+
+                console.log(status);
+
+
+                
+
+                if(status=="customer"){
+
+                    body+="<tr>";
+                    body+="<td>"+result[i].orderID+"</td>";
+                    body+="<td>"+result[i].orderDate+"</td>";
+                    body+="<td>"+result[i].orderStatus+"</td>";
+                    body+="<td>"+result[i].laundromatName+"</td>";
+                    body+="<td>"+result[i].laundromatAddress+"</td>";
+                    body+="<td>"+result[i].laundromatEmail+"</td>";
+                    body+="<td>"+document.getElementById("customerDropdown").innerHTML+"</td>";
+
+                    body+="</tr>";
+                }
+
+
+
+                else if(status=="owner"){
+                    body+="<tr>";
+                    body+="<td>"+result[i].orderID+"</td>";
+                    body+="<td>"+result[i].orderDate+"</td>";
+                    body+="<td>"+result[i].orderStatus+"</td>";
+                    body+="<td>"+result[i].customerName+"</td>"
+                    body+="<td>"+result[i].userEmail+"</td>";
+                    body+="<td class=address>"+result[i].customerAddress+"</td>";
+                    
+                   // document.getElementById("ownerDropdown").getElementsByClassName("dropdown")[0].id="order#"+result[i].orderID;
+                    body+="<td>"+document.getElementById("ownerDropdown").innerHTML+"</td>";
+
+                    body+="</tr>";
+                }
+            }
+
+
+
+            $("#tbody").html(body);
+        }});
+
+
+        $(document).on("click",".option",(e)=>{
+            let option=$(e.target).text();
+            console.log(option);
+
+            if(option=="Accept order"){
+                let target = ($(e.target).parent().parent().parent().prev().prev().prev().prev().prev().prev()).text();
+                console.log(target);
+                
+                $.ajax({
+                    url:`/api/orders/acceptOrder/${target}`,
+                    type:'PUT',
+                    success:function(){
+                        location.reload();
+                    }
+                });
+            }
+
+            else if(option=="Notify pickup"){
+                let target=($(e.target).parent().parent().parent().prev().prev().prev().prev().prev().prev()).text();
+                console.log(target);
+                
+                $.ajax({
+                    url:`/api/orders/notifyPickup/${target}`,
+                    type:'PUT',
+                    success:function(){
+                        location.reload();
+                    },
+                    error:function(err){
+                        console.log(err);
+                    }
+                });    
+            }
+            
+            else if(option=="Cancel order"){
+                console.log("reguhoigre")
+                let target=($(e.target).parent().parent().parent().prev().prev().prev().prev().prev().prev()).text();
+                console.log(target);
+
+                $.ajax({
+                    url:`/api/orders/cancelOrder/${target}`,
+                    type:'DELETE',
+                    success:function(){
+                        location.reload();
+                    },
+                    error:function(err){
+                        console.log(err);
+                    }
+                })
+
+            }
+
+            
+
+
+
+
+
+
+        });
+
+
+
+
+    });
+</script>
+
+
+<script type="text/template" id="customerDropdown">
+
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+            Dropdown button
+        </button>
+        <div class="dropdown-menu" >
+            <a class="dropdown-item option" href="#">Cancel order</a>
+            <a class="dropdown-item option" href="#">Contact owner</a>
+        </div>
+    </div>
+
+
+</script>
+
+<script type="text/template" id="ownerDropdown">
+
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+            Dropdown button
+        </button>
+        <div class="dropdown-menu" >
+            <a class="dropdown-item option" href="#">Accept order</a>
+            <a class="dropdown-item option" href="#">Notify pickup</a>
+            <a class="dropdown-item option" href="#">Cancel order</a>
+            <a class="dropdown-item option" href="#">Contact customer</a>
+        </div>
+    </div>
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{#unless login}}
+    <div class="container text-center">
+        <h1><a href="/login">Login</a> to see your current orders. Don't have an account? <a href="/register">Register!</a></h1>
+    </div>
+{{/unless}}
+
+
+
+<h1 id="first"></h1>
+
+
+
+<div class="container">
+    <table class="table">
+        <thead id="th">
+
+
+        </thead>
+
+
+        <tbody id="tbody">
+        </tbody>
+    </table>
+
+</div>
