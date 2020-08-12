@@ -10,9 +10,8 @@ exports.register=(req,res)=>{
         req.body.name + "', '" + req.body.password  +"', '"+ req.body.email + "', '" + req.body.address + "', '" +
         req.body.phone_number + "')";
     }else{   //owner
-        sql="INSERT INTO claimedLaundromats (laundromatName,laundromatAddress,ownerName,email,password,ownerPhone) VALUES ('" + req.body.laundromatName
-         + "', '" + req.body.laundromatAddress +"', '"+ req.body.name + "', '" + req.body.email + "', '" + req.body.password +"' , '"
-        +req.body.phone_number+ "')";
+        sql=`INSERT INTO claimedLaundromats (laundromatName,laundromatAddress,ownerName,email,password,ownerPhone,zipcode) VALUES ('${req.body.laundromatName}'
+        ,'${req.body.laundromatAddress}','${req.body.name}','${req.body.email}','${req.body.password}','${req.body.phone_number}','${req.body.zipcode}');`;
     }
 
 
@@ -25,6 +24,6 @@ exports.register=(req,res)=>{
         console.log("1 record inserted");
     });
 
-    res.render('/');
+    //res.render('/');
 
 };

@@ -104,7 +104,7 @@ app.post('/login',
 );
 
 
-app.get('/laundromatPage/:laundromatInfo',searchController.laundromatSearch);
+app.get('/laundromatPage/:name/:address',searchController.laundromatSearch);
 
 
 

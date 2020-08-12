@@ -7,12 +7,15 @@
 </head>
 <body>
 
-    <ul class="result_list">
-        {{#each results}}
-            <a href="laundromatPage/{{this.name}} at {{this.formatted_address}}"><li>{{this.name}} address:{{this.formatted_address}}</li></a>
-            
-        {{/each}}
-    </ul>
+    <div class="container">
+        <ul class="result_list">
+            {{#each this}}
+                {{#if this.laundromatName}}
+                    <a href="laundromatPage/{{this.laundromatName}}/{{this.laundromatAddress}}"><li>{{this.laundromatName}} address:{{this.laundromatAddress}}</li></a>
+                {{/if}}
+            {{/each}}
+        </ul>
+    </div>
     
 
 </body>
