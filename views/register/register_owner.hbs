@@ -1,16 +1,11 @@
 <script>
-    $(document).ready(function(){
-        $('#ownerOptions').hide();
+    $(document).ready( () =>{
+        let string=window.location.href;
+        let address=decodeURI(string.split("name=")[1].split("address=")[1]);
+        let name=decodeURI(string.split("name=")[1].split("/address=")[0]);
 
-        $('#owner').click( () => {
-            $('#ownerOptions').toggle();
-        });
-
-
-        $('#disable').prop("disabled", true);
-
-
-
+        $("#laundromatAddress").val(address);
+        $("#laundromatName").val(name);
 
 
     });
@@ -19,31 +14,16 @@
 
 
 
-
-
-
-
-
-
-
 <div class="row mt-5">
   <div class="col-md-6 m-auto">
     <div class="card card-body">
       <h1 class="text-center mb-3">
-        <i class="fas fa-user-plus"></i> Register
+        <i class="fas fa-user-plus"></i> Register Owner
       </h1>
       <form action="/register" method="POST">
         <div class="form-group">
           <label for="name">Name</label>
-          <input
-            required
-            type="name"
-            id="name"
-            name="name"
-            class="form-control"
-            placeholder="Enter Name"
-            value=""
-          />
+          <input required type="name" id="name" name="name" class="form-control" placeholder="Enter Name" value=""/>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
@@ -106,18 +86,11 @@
           />
         </div>
 
-        <div id="disable">
-            <input type="radio" id="customer" name="customerOrOwner" value="">
-            <label for="customer">customer</label><br>
-            <input type="radio" id="owner" name="customerOrOwner" value="">
-            <label for="owner">owner</label><br>
-        </div>
-
         <div id="ownerOptions">
             <label for="laundromatName">Laundromat Name</label>
-            <input type="text" id="laundromatName" name="laundromatName" value=""><br>
+            <input type="text" id="laundromatName" name="laundromatName" readonly><br>
             <label for="laundromatAddress">Laundromat Address</label>
-            <input type="text" id="laundromatAddress" name="laundromatAddress" value=""><br>
+            <input type="text" id="laundromatAddress" name="laundromatAddress"readonly><br>
             <label for="laundromatName">Laundromat zipcode</label>
             <input type="text" id="zipcode" name="zipcode" value="">
         </div>

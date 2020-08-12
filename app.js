@@ -12,23 +12,6 @@ app.use(session({ cookie: { maxAge: 60000 },
   saveUninitialized: false})
 );
 
-//set up db
-
-// var mysql = require('mysql');
-// var connection = mysql.createConnection({
-//   host     : 'localhost',
-//   user     : 'root',
-//   password : 'Eric64494897',
-//   database : 'laundry app'
-// });
-
-// connection.connect(function(err) {
-//   if (err) {
-//     console.error('error connecting: ' + err.stack);
-//     return;
-//   }
-// });
-
 
 // module.exports.database=connection;
 
@@ -82,14 +65,35 @@ app.get('/', function (req, res) {
 
 app.post('/',searchController.zipcodeSearch);
 
+
+
+
+
+//register
 app.get('/register',(req,res)=>{
-    res.render('register',{title:"this is a test "});
+    res.render('register/askCustomerOrOwner',{title:"this is a test "});
 });
 
-app.post('/register',registerController.register);
+app.get('/register/registerCustomer',(req,res)=>{
+    res.render('register/register_customer')
+});
+app.post('/register/registerCustomer',registerController.registerCustomer);
+
+app.get('/register/pickLaundromat',(req,res)=>{
+    res.render('register/pickLaundromat');
+});
+
+app.post('/register/pickLaundromat',registerController.searchLaundromat);
+
+app.get('/register/ownerRegister/:laundromatName/:laundromatAddress',(req,res)=>{
+    res.render('register/register_owner');
+});
+
+app.post('/ownerRegister/:laundromatName/:laundromatAddress',registerController.registerOwner);
 
 
 
+//login
 
 app.get('/login',(req,res)=>{
     res.render('login');

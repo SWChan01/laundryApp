@@ -1,0 +1,8 @@
+<div class="container">
+    <h1>Select your laundromat</h1>
+    <ul class="result_list">
+        {{#each results}}
+            <a href="ownerRegister/name={{this.name}}/address={{this.formatted_address}}"><li>{{this.name}} address:{{this.formatted_address}}</li></a>
+        {{/each}}
+    </ul>
+</div>
