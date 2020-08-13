@@ -12,9 +12,6 @@ app.use(session({ cookie: { maxAge: 60000 },
   saveUninitialized: false})
 );
 
-
-// module.exports.database=connection;
-
 const connection=require('./db');
 require('./config/passport')(passport,connection); //sets up passport 
 
@@ -63,7 +60,12 @@ app.get('/', function (req, res) {
     res.render('home');
 });
 
-app.post('/',searchController.zipcodeSearch);
+
+
+app.get('/searchRegisteredLaundromat', function (req, res) {
+    res.render('order/searchRegisteredLaundromat');
+});
+app.post('/searchRegisteredLaundromat',searchController.zipcodeSearch);
 
 
 
