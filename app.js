@@ -37,15 +37,17 @@ app.use(function (req, res, next) {
     next();
 });
 
-//handlebars - check if user is a customer or owner
-// app.use(function (req, res, next) {
-//     let bool;
-//     if(req.user.status=="customer")
-//         bool=true;
-//     else bool=false;
-//     res.locals.status =bool;
-//     next();
-// });
+//handlebars - check if user is a customer or owner,true=owner,false=customer, used to deny owners for placing an order
+app.use(function (req, res, next) {
+    let bool;
+    if(req.user){
+        bool=true;
+        if(req.user.status=="customer")
+        bool=false;
+    }
+    res.locals.status=bool;
+    next();
+});
 
 const router=require('./api')
 app.use('/api',router);
@@ -73,7 +75,7 @@ app.post('/searchRegisteredLaundromat',searchController.zipcodeSearch);
 
 //register
 app.get('/register',(req,res)=>{
-    res.render('register/askCustomerOrOwner',{title:"this is a test "});
+    res.render('register/askCustomerOrOwner');
 });
 
 app.get('/register/registerCustomer',(req,res)=>{

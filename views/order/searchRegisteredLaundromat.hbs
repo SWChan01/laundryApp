@@ -1,10 +1,29 @@
 <div class="container">
-    <form action="" method="POST">
-        <div class="form-group">
-            <label for="">Enter your zip code to look for registered laundromats available for drop off service!</label>
-            <input class="form-control" type="text" name="zipcode" placeholder="Search">
-            <input type="submit" class="form-control btn btn-primary" value="Submit">
+
+
+    {{#if status}}
+
+    <div class="container text-center">
+        <h1>You are an owner so you can not place an order! Only customers and place an order!</h1>
+    </div>
+
+
+    {{else if login}}
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="">Enter your zip code to look for registered laundromats available for drop off service!</label>
+                <input class="form-control" type="text" name="zipcode" placeholder="Search">
+                <input type="submit" class="form-control btn btn-primary" value="Submit">
+            </div>
+        </form>
+
+    {{else}}
+        <div class="container text-center">
+            <h1><a href="/login">Login</a> to place an order. Don't have an account? <a href="/register">Register!</a></h1>
         </div>
-    </form>
+
+
+    {{/if}}
+
 </div>
 
