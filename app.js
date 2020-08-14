@@ -4,8 +4,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const passport= require('passport');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 var flash=require("connect-flash");
 app.use(flash());
+app.use(cookieParser('secret'));
 app.use(session({ cookie: { maxAge: 60000 }, 
   secret: 'woot',
   resave: false, 
@@ -138,7 +140,7 @@ app.get('/logout', function(req, res){
 
 
 app.get('/myOrders',(req,res)=>{
-    res.render('order/myOrders');
+    res.render('order/myOrders',{message:req.flash("message")});
 });
 
 

@@ -169,10 +169,10 @@
             Dropdown button
         </button>
         <div class="dropdown-menu" >
-            <a class="dropdown-item option" href="#">Accept order</a>
-            <a class="dropdown-item option" href="#">Notify pickup</a>
-            <a class="dropdown-item option" href="#">Cancel order</a>
-            <a class="dropdown-item option" href="#">Contact customer</a>
+            <a class="dropdown-item option" href="">Accept order</a>
+            <a class="dropdown-item option" href="">Notify pickup</a>
+            <a class="dropdown-item option" href="">Cancel order</a>
+            <a class="dropdown-item option" href="">Contact customer</a>
         </div>
     </div>
 
@@ -197,6 +197,14 @@
     </div>
 {{/unless}}
 
+
+
+
+{{#if message}}
+    <div class="alert alert-danger text-center">
+        {{message}}
+    </div>
+{{/if}}
 
 
 <h1 id="first"></h1>
