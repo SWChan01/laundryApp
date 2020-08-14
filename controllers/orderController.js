@@ -1,4 +1,5 @@
 const db=require("../db");
+const transporter=require("../config/mailer").transporter;
 exports.newOrderPost=(req,res)=>{
     console.log("ujreahgiohraeioghj");
     console.log(req.body);
@@ -35,6 +36,24 @@ exports.newOrderPost=(req,res)=>{
             if(err) throw err;
             console.log("1 ORDER INSERTED");
             console.log(results);
+
+            //send email to owner
+            transporter.sendMail({
+                from:"laundryApp",
+                to:laundromatEmail,
+                subject:"You have a new order",
+                text:"Dear owner of "+laundromatName+", a new laundromat order has been posted",
+                html:""
+            });
+
+            //send email to customer
+            transporter.sendMail({
+                from:"laundryApp",
+                to:req.user.email,
+                subject:"You have sucessfully placed an order",
+                text:"Dear "+req.user.name+", you have sucessfully placed a drop off request to "+laundromatName,
+                html:""
+            });
 
         });
 

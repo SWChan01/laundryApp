@@ -8,7 +8,6 @@ router.get("/",(req,res)=>{
     let sql=`SELECT * FROM orders;`
     db.query(sql,(err,results)=>{
         if (err) throw err;
-        //console.log("this is res: "+JSON.stringify(results));
         res.json(results);
     });
 });
