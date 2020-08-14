@@ -43,16 +43,17 @@ router.put("/acceptOrder/:orderID",(req,res)=>{
     db.query(query,(err,result)=>{
         if(err) throw err;
 
+        //if order is accepted, can not be accepted again
         if(result[0].orderStatus=="Accepted"){
-           // console.log("erioahgioejraiogjieoraqjgiopehrtsiopghiopertghioper!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11")
             req.flash("message","Action failed ! Order is already accepted!");
-            return res.redirect('/login');
+            return res.redirect('/myOrders');
             
         }
 
+        //if order is picked up, can not accept it
         else if(result[0].orderStatus=="Picked up"){
             req.flash("message","Action failed ! Order is already picked up!");
-            return res.redirect('/login');
+            return res.redirect('/myOrders');
         }
 
         else if(result[0].orderStatus=="placed"){
@@ -104,112 +105,129 @@ router.put("/notifyPickup/:orderID",(req,res)=>{
     let ID=req.params.orderID;
 
 
-    let sql=`UPDATE orders SET orderStatus='Picked up' WHERE orderID='${ID}'`
+    let query=`SELECT * FROM orders WHERE orderID=${ID}`;
+    db.query(query,(err,result)=>{
+        if (err) throw err;
 
-    db.query(sql,(err,result)=>{
-        if(err) throw err;
-        console.log("order changed to accepted");
-        res.json(result);
-    });
+        //order is already picked up
 
+        if(result[0].orderStatus=="Picked up"){
+            req.flash("message","Action failed ! Order is already picked up!");
+            return res.redirect('/myOrders');
+        }
 
-    //find ID of owner and customer then send mail to notify picked up order
-    let sql2=`SELECT * FROM orders WHERE orderID='${ID}'`
-    db.query(sql2,(err,result)=>{
-        if(err) throw err;
-        console.log("this is result "+JSON.stringify(result));
-        let customrEmail=result[0].userEmail;
-        let ownerEmail=result[0].ownerEmail;
-        let laundromatName=result[0].laundromatName;
+        //order is not accepted yet
+        else if(result[0].orderStatus=="placed"){
+            req.flash("message","Action failed ! Order is not accepted yet! Please accept it first!");
+            return res.redirect('/myOrders');
+        }
 
         
-        //send mail to customer
-        transporter.sendMail({
-            from:"laundryApp",
-            to:customrEmail,
-            subject:"Your order has been picked up!",
-            text:"Dear customer, your order has been picked up by "+laundromatName,
-            html:""
-        });
+        else if(result[0].orderStatus=="Accepted"){
+            let sql=`UPDATE orders SET orderStatus='Picked up' WHERE orderID='${ID}'`
 
+            db.query(sql,(err,result)=>{
+                if(err) throw err;
+                console.log("order changed to accepted");
+                res.json(result);
+            });
+
+
+            //find ID of owner and customer then send mail to notify picked up order
+            let sql2=`SELECT * FROM orders WHERE orderID='${ID}'`
+            db.query(sql2,(err,result)=>{
+                if(err) throw err;
+                console.log("this is result "+JSON.stringify(result));
+                let customrEmail=result[0].userEmail;
+                let ownerEmail=result[0].ownerEmail;
+                let laundromatName=result[0].laundromatName;
+
+                
+            //send mail to customer
+            transporter.sendMail({
+                from:"laundryApp",
+                to:customrEmail,
+                subject:"Your order has been picked up!",
+                text:"Dear customer, your order has been picked up by "+laundromatName,
+                html:""
+            });
+
+
+
+            });
+
+        }
 
 
     });
 
 
-    
 
 });
 
 
 router.delete("/cancelOrder/:orderID",(req,res)=>{
     let ID=req.params.orderID;
-    //find ID of owner and customer then send mail to notify picked up order
-    let sql2=`SELECT * FROM orders WHERE orderID='${ID}'`
-    db.query(sql2,(err,result)=>{
-        if(err) throw err;
-        console.log("this is result "+JSON.stringify(result));
-        let customrEmail=result[0].userEmail;
-        let ownerEmail=result[0].ownerEmail;
-        let laundromatName=result[0].laundromatName;
+
+    let query=`SELECT * FROM orders WHERE orderID=${ID}`;
+    db.query(query,(err,result)=>{
+        if (err) throw err;
+
+
+        if(result[0].orderStatus=="Accepted"){
+            req.flash("message","Action failed ! You can not cancel an order that is already accepted!");
+            return res.redirect('/myOrders');
+        }
+
+        else if(result[0].orderStatus=="Picked up"){
+            req.flash("message","Action failed ! You can not cancel an order that is already picked up!");
+            return res.redirect('/myOrders');
+        }
+
+        else if(result[0].orderStatus=="placed"){
+            //find ID of owner and customer then send mail to notify picked up order
+            let sql=`SELECT * FROM orders WHERE orderID='${ID}'`
+            db.query(sql,(err,result)=>{
+                if(err) throw err;
+                console.log("this is result "+JSON.stringify(result));
+                let customrEmail=result[0].userEmail;
+                let ownerEmail=result[0].ownerEmail;
+                let laundromatName=result[0].laundromatName;
 
         
-        //send mail to customer
-        transporter.sendMail({
-            from:"laundryApp",
-            to:customrEmail,
-            subject:"Your order has been sucessfully canceled",
-            text:"Dear user, your order has been canceled ",
-            html:""
-        });
+                //send mail to customer
+                transporter.sendMail({
+                    from:"laundryApp",
+                    to:customrEmail,
+                    subject:"Your order has been sucessfully canceled",
+                    text:"Dear user, your order has been canceled ",
+                    html:""
+                });
 
-        //send mail to owner
-        transporter.sendMail({
-            from:"laundryApp",
-            to:customrEmail,
-            subject:"Your order has been sucessfully canceled",
-            text:"Dear user, your order has been canceled ",
-            html:""
-        });
+                //send mail to owner
+                transporter.sendMail({
+                    from:"laundryApp",
+                    to:ownerEmail,
+                    subject:"Your order has been sucessfully canceled",
+                    text:"Dear user, your order has been canceled ",
+                    html:""
+                });
+
+                //DELETE the row
+                let sql2=`DELETE FROM orders WHERE orderID=${ID}`;
+                db.query(sql2,(err,result)=>{
+                    if (err) throw err;
+                    console.log("order deleted");
+                    res.json(result);
+                });
+
+            });
 
 
+        }
 
     });
-
-
-    let sql=`DELETE FROM orders WHERE orderID=${ID}`;
-
-    db.query(sql,(err,result)=>{
-        if (err) throw err;
-        console.log("order deleted");
-        res.json(result);
-    });
-
-    
-
-
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+})
 
 
 module.exports=router;
