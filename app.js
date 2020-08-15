@@ -13,7 +13,8 @@ app.use(session({ cookie: { maxAge: 60000 },
   resave: false, 
   saveUninitialized: false})
 );
-
+var path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
 const connection=require('./db');
 require('./config/passport')(passport,connection); //sets up passport 
 
