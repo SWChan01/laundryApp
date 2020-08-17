@@ -9,13 +9,20 @@
 </div>
 
 <div class="background">
-    <div class="container-fluid">
-        <form action="" method="POST">
-            <div class="form-group">
-                <input class="mx-auto d-block" type="text" name="zipcode" placeholder="Enter your zipcode">
-                <input type="submit" class="btn btn-primary mx-auto d-block" value="Check">
-            </div>
-        </form>
+    <div class="container">
+        <div class="searchBox card card-body">
+            <form action="/searchRegisteredLaundromat" method="POST">
+                <div class="form-group">
+                    <label for="" class="text">Enter your zipcode to check availability!</label>
+                    <div class="input-group">
+                        <input class="mx-auto d-block form-control" type="text" name="zipcode" placeholder="Enter your zipcode">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary mx-auto d-block text">Check</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -36,9 +43,28 @@
 
 
 <div class="container-fluid">
-    <div class="row">
-        <h3 class="col-md-6">A simple, easy to use platform to simplify communications for drop off pick up and deliveries</h3>
-        <img src="/images/communication.jpg" alt="" style="width:600px;height:400px;">
+    <div class="row ">
+        <div class="card col-12">
+            <div class="card-header">
+                <h3 class="col-md-12">A simple, easy to use platform to simplify communications for drop off pick up and deliveries</h3>
+            </div>
+
+            <div class="card card-body" id="whyThisApp">
+                <div class="row">
+                    <img src="/images/communication.jpg" alt="" style="width:600px;height:400px;" class="col-4 ">
+                    <div class="col-8">
+                        <h2 class="text-center mt-5">Why use this app?</h2>
+                        <p class="lead mt-5 idea">
+                            In the digital society that we live in today,online food delivery services such as GrubHub,DoorDash and UberEats
+                            have revolutionized the entire restatuent industry.
+                            People around the globe were able to get order foods with some clicks of buttons.
+                            This app has the a similar concept to something like GrubHub but targets specificlly for laundromat owners. Based on personal experience, 
+                            a lot of small laundromat owners still rely on phone contacts for laundry pickup and delivery requests. This platform provides a
+                            more convenient way for handling laundry pick up and drop off and eliminates the need for individual laundromat to create its very own website</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -49,55 +75,58 @@
 
 
 
+<div class="card">
 
-<div class="container-fluid pb-5 pt-5">
-    <div class="row howItWorks text-center">
-        <div class="col-12">
-             <h1 class="display-4">How it works</h1>
+    <div class="container-fluid pb-5 pt-5 card-header">
+        <div class="row howItWorks text-center">
+            <div class="col-12">
+                <h1 class="display-4">How it works</h1>
+            </div>
+            <hr>
         </div>
-        <hr>
-    </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row text-center">
-        <div class="col-xs-12 col-sm-6 col-md-3">
-            <img src="/images/orderOnline.jpg" class="rounded pb-3" alt="order-online" width="300" height="250">
-            <h3>Order online</h3>
-            <p>Pick and order from a registered laundromat with a schduled pick up time</p>
-        </div>
-        <svg width="2em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill col-1 mt-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-8.354 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L9.793 7.5H5a.5.5 0 0 0 0 1h4.793l-2.147 2.146z"/>
-        </svg>
-
-        
-        <div class="col-xs-12 col-sm-6 col-md-3">
-            <img src="/images/dirty_laundry.png" class="rounded pb-3" alt="dirty-laundry" width="300" height="250">
-            <h3>Laundry gets picked up</h3>
-            <p>laundromat gets notified and picks up your laundry</p>
-        </div>
-        <svg width="1em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill col-1 mt-5 " fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-8.354 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L9.793 7.5H5a.5.5 0 0 0 0 1h4.793l-2.147 2.146z"/>
-        </svg>
-        <div class="col-xs-12 col-sm-6 col-md-3">
-             <img src="/images/wash_and_fold.png" class="img-rounded pb-3" alt="washNFold" width="300" height="250">
-            <h3>Have laundry washed and folded</h3>
-            <p>Laundromat charges fee and provide wash and fold servide to your leaundry</p>
-        </div>
-
-
-
     </div>
 
-    <div class="row">
-        <svg width="1em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill col-2 m-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-8.354 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L9.793 7.5H5a.5.5 0 0 0 0 1h4.793l-2.147 2.146z"/>
-        </svg>
-        <div class="">
-            <img src="/images/delivery.png" alt="delivery" class="m-5">
-            <h3>Have laundry delivered!</h3>
-            <p>After wash and fold service is done, laundry is delivered to your door step</p>
+    <div class="container-fluid card-body" id="steps">
+        <div class="row text-center">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <img src="/images/orderOnline.jpg" class="rounded-circle pb-3" alt="order-online" width="300" height="250">
+                <h3>Order online</h3>
+                <p>Pick and order from a registered laundromat with a schduled pick up time</p>
+            </div>
+            <svg width="2em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill col-1 mt-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-8.354 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L9.793 7.5H5a.5.5 0 0 0 0 1h4.793l-2.147 2.146z"/>
+            </svg>
+
+            
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <img src="/images/dirty_laundry.png" class="rounded-circle pb-3" alt="dirty-laundry" width="300" height="250">
+                <h3>Laundry gets picked up</h3>
+                <p>laundromat gets notified and picks up your laundry</p>
+            </div>
+            <svg width="1em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill col-1 mt-5 " fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-8.354 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L9.793 7.5H5a.5.5 0 0 0 0 1h4.793l-2.147 2.146z"/>
+            </svg>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <img src="/images/wash_and_fold.png" class="rounded-circle pb-3" alt="washNFold" width="300" height="250">
+                <h3>Have laundry washed and folded</h3>
+                <p>Laundromat charges fee and provide wash and fold servide to your leaundry</p>
+            </div>
+
+
+
         </div>
+
+        <div class="row">
+            <svg width="1em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill col-2 m-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-8.354 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L9.793 7.5H5a.5.5 0 0 0 0 1h4.793l-2.147 2.146z"/>
+            </svg>
+            <div class="">
+                <img src="/images/delivery.png" alt="delivery" class="m-5 rounded-circle">
+                <h3>Have laundry delivered!</h3>
+                <p>After wash and fold service is done, laundry is delivered to your door step</p>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -112,5 +141,35 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+        position:relative
     }
+    .searchBox{
+            opacity: 0.7;
+            position: absolute;
+            top: 250px;
+            left: 50px;
+            background-color:gray;
+            width: 40%;
+            height: 35%;
+            text-align:center;
+            
+    }
+    .text{
+        z-index: 100;
+        color:white;
+        font-size: 24px;
+        font-weight:bolder;
+        opacity: 1;
+    }
+
+
+    .idea{
+        text-indent:40px;
+    }
+    {{!-- #steps{
+        background-color:honeydew;
+    }
+    #whyThisApp{
+        background-color:cornsilk;
+    } --}}
 </style>
