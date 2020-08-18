@@ -46,6 +46,7 @@ module.exports=function(passport,database){
 
 
 					if(result.length){
+						req.flash("message","Welcome!");
 						console.log(result[0])
 						return done(null, result[0]);	
 					}
@@ -62,11 +63,12 @@ module.exports=function(passport,database){
 		
 							if(!result.length){
 								console.log("iorhgeaio");
-								return done(null,false,{message:'wrong email or password!.'});
+								req.flash("message","Invalid email or password! Please try again!")
+								return done(null,false);
 							}
 							
 		
-		
+							
 							
 							console.log(result[0])
 							return done(null, result[0]);	

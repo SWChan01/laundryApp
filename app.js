@@ -103,14 +103,14 @@ app.post('/ownerRegister/:laundromatName/:laundromatAddress',registerController.
 //login
 
 app.get('/login',(req,res)=>{
-    res.render('login');
+    res.render('login',{message:req.flash("message")});
 });
 
 app.post('/login',
-  passport.authenticate('local', { successRedirect: '/profile',
+  passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/login',
-                                   failureFlash: true, 
-                                   session:true               }),
+                                   failureFlash: 'Invalid username or password!', 
+                                   session:true})
 
 );
 
