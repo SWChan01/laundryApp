@@ -62,7 +62,7 @@ app.use('/api',router);
 //routes
 
 app.get('/', function (req, res) {
-    res.render('home');
+    res.render('home',{message:req.flash("message")});
 });
 
 
@@ -82,7 +82,7 @@ app.get('/register',(req,res)=>{
 });
 
 app.get('/register/registerCustomer',(req,res)=>{
-    res.render('register/register_customer')
+    res.render('register/register_customer',{message:req.flash("message")});
 });
 app.post('/register/registerCustomer',registerController.registerCustomer);
 
