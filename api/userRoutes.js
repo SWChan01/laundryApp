@@ -27,8 +27,16 @@ router.put('/changeName/:newName/:userID',(req,res) => {
     console.log(query);
     db.query(query,(err,result)=>{
         if (err) throw err
-        console.log(res);
-        res.json(result);
+        if(result.affectedRows>0){
+            res.json(result);
+        }
+        else{
+            let query2=`UPDATE claimedLaundromats SET laundromatName='${newName}' WHERE ID='${ID}'`;
+            db.query(query2,(err,result)=>{
+                res.json(result);
+            });
+        }
+
     });
 
 
@@ -43,8 +51,16 @@ router.put('/changeEmail/:newEmail/:userID',(req,res) => {
     console.log(query);
     db.query(query,(err,result)=>{
         if (err) throw err
-        console.log(res);
-        res.json(result);
+        if(result.affectedRows>0){
+            res.json(result);
+        }
+        else{
+            let query2=`UPDATE claimedLaundromats SET email='${newEmail}' WHERE ID='${ID}'`;
+            db.query(query2,(err,result)=>{
+                res.json(result);
+            });
+        }
+
     });
 
 
@@ -59,8 +75,16 @@ router.put('/changeAddress/:newAddress/:userID',(req,res) => {
     console.log(query);
     db.query(query,(err,result)=>{
         if (err) throw err
-        console.log(res);
-        res.json(result);
+        if(result.affectedRows>0){
+            res.json(result);
+        }
+        else{
+            let query2=`UPDATE claimedLaundromats SET laundromatAddress='${newAddress}' WHERE ID='${ID}'`;
+            db.query(query2,(err,result)=>{
+                res.json(result);
+            });
+        }
+
     });
 
 
@@ -75,8 +99,16 @@ router.put('/changePhone/:newPhone/:userID',(req,res) => {
     console.log(query);
     db.query(query,(err,result)=>{
         if (err) throw err
-        console.log(res);
-        res.json(result);
+        if(result.affectedRows>0){
+            res.json(result);
+        }
+        else{
+            let query2=`UPDATE claimedLaundromats SET ownerPhone='${newPhone}' WHERE ID='${ID}'`;
+            db.query(query2,(err,result)=>{
+                res.json(result);
+            });
+        }
+
     });
 
 
