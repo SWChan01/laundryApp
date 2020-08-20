@@ -1,4 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
+const bcrypt=require('bcrypt');
 
 module.exports=function(passport,database){
 
@@ -36,7 +37,7 @@ module.exports=function(passport,database){
 					passReqToCallback : true},
 					
           	function(req,email, password, done) {
-				let sql="SELECT * FROM User WHERE email='"+email+"' AND password='"+password+"';";
+				let sql=`SELECT * FROM User WHERE email='${email}'`;
 				console.log(sql);
 
 				database.query(sql, function (err, result, fields) {
@@ -46,9 +47,13 @@ module.exports=function(passport,database){
 
 
 					if(result.length){
-						req.flash("message","Welcome!");
-						console.log(result[0])
-						return done(null, result[0]);	
+						bcrypt.compare(password,result[0].password,(err,end)=>{
+							if(end==true){
+								req.flash("message","Welcome!");
+								console.log(result[0])
+								return done(null, result[0]);	
+							}
+						})
 					}
 
 

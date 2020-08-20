@@ -96,7 +96,7 @@ app.get('/register/ownerRegister/:laundromatName/:laundromatAddress',(req,res)=>
     res.render('register/register_owner');
 });
 
-app.post('/ownerRegister/:laundromatName/:laundromatAddress',registerController.registerOwner);
+app.post('/register/ownerRegister/:laundromatName/:laundromatAddress',registerController.registerOwner);
 
 
 
