@@ -45,9 +45,9 @@ app.use(function (req, res, next) {
     let bool;
     if(req.user){
         bool=true;
-        if(req.user.status=="customer")
-        bool=false;
+        if(req.user.status=="customer") bool=false;
     }
+    console.log("this is bool "+bool);
     res.locals.status=bool;
     next();
 });
@@ -130,7 +130,8 @@ app.post('/newOrder/:laundromatInfo',orderController.newOrderPost);
 
 app.get('/profile',(req,res)=>{
     //console.log("user:"+JSON.stringify(req.user));
-    console.log(req.user);
+    //console.log(req.user);
+    console.log(req.user.laundromatAddress)
     res.render('profile/profilePage',req.user);
 });
 

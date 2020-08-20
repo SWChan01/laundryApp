@@ -1,4 +1,118 @@
 
+<script>
+    function toggleButton(element){
+        let userID={{ID}};
+        const command=element.id;
+        $(element).prev().removeAttr('readonly');
+        element.innerHTML="Submit change"
+        element.onclick=()=>{
+            console.log("hi");
+            let newVal= $(element).prev().val();
+            console.log(newVal);
+
+
+            $.ajax({
+                url:`/api/userData/${command}/${newVal}/${userID}`,
+                type:'PUT',
+                success:function(){
+                    location.reload();
+                }
+            });
+            
+
+
+
+        }
+
+
+
+
+
+    }
+
+    $(document).ready(()=>{
+
+    })
+</script>
 {{#if login}}
-    <h1>Welcome! {{email}} {{password}}</h1>
+    <h3 class="text-center mt-5">Welcome! {{name}}</h3>
+    <div class="container mt-5">
+        <form>
+            {{#if laundromatName}}
+            <div class="form-group">
+                <label for="">Laundroamt Name</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" value="{{laundromatName}}" readonly>
+                    <button class="btn btn-primary input-group-append" id="changeName" type="button" onclick="toggleButton(this)">Edit</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Laundromat Email</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" value={{email}} readonly>
+                    <button class="btn btn-primary input-group-append" id="changeEmail" type="button" onclick="toggleButton(this)">Edit</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Laundromat Address</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" value={{laundromatAddress}} readonly>
+                    <button class="btn btn-primary input-group-append" id="changeAddress" type="button" onclick="toggleButton(this)">Edit</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Phone Number</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" value={{ownerPhone}} readonly>
+                    <button class="btn btn-primary input-group-append" id="changePhone" type="button" onclick="toggleButton(this)">Edit</button>
+                </div>
+            </div>
+
+            {{else}}
+            <div class="form-group">
+                <label for="">Name</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" value="{{name}}" readonly>
+                    <button class="btn btn-primary input-group-append" id="changeName" type="button" onclick="toggleButton(this)">Edit</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Email</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" value={{email}} readonly>
+                    <button class="btn btn-primary input-group-append" id="changeEmail" type="button" onclick="toggleButton(this)">Edit</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Address</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" value={{address}} readonly>
+                    <button class="btn btn-primary input-group-append" id="changeAddress" type="button" onclick="toggleButton(this)">Edit</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Phone Number</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" value={{phone_number}} readonly>
+                    <button class="btn btn-primary input-group-append" id="changePhone" type="button" onclick="toggleButton(this)">Edit</button>
+                </div>
+            </div>
+            {{/if}}
+        </form>
+            
+    </div>
+
+
+
+
+
+
+
+
+{{else}}
+    <div class="container text-center">
+        <h1>You are not logged in! Please <a href="/login">login</a> or <a href="/register">register</a></h1>
+    </div>
+
+
 {{/if}}

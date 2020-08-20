@@ -21,9 +21,9 @@
 
 
             if(status=="customer"){
-                let header="<th>Order ID</th><th>Order Date</th><th>Order status</th><th>laundromat name</th><th>laundromat email</th><th>laundromat address</th><th>Actions</th>";
+                let header="<th>Order ID</th><th>Order Date</th><th>Order status</th><th>laundromat name</th><th>laundromat phone#</th><th>laundromat address</th><th>Actions</th>";
                 $("#th").html(header);
-            }else{
+            }else if(status=="owner"){
                 let header="<th>Order ID</th><th>Order Date</th><th>Order status</th><th>Customer name</th><th>Cusomter email</th><th>Customer address</th><th>Actions</th>";
                 $("#th").html(header);
             }
@@ -47,8 +47,8 @@
                     body+="<td>"+result[i].orderDate+"</td>";
                     body+="<td>"+result[i].orderStatus+"</td>";
                     body+="<td>"+result[i].laundromatName+"</td>";
+                    body+="<td>"+result[i].ownerPhone+"</td>";
                     body+="<td>"+result[i].laundromatAddress+"</td>";
-                    body+="<td>"+result[i].laundromatEmail+"</td>";
                     body+="<td>"+document.getElementById("customerDropdown").innerHTML+"</td>";
 
                     body+="</tr>";

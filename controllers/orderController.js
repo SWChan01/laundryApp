@@ -23,13 +23,14 @@ exports.newOrderPost=(req,res)=>{
         console.log("email"+laundromatEmail);
         laundromatName=res[0].laundromatName;
         ID=res[0].ID;
+        ownerPhone=res[0].ownerPhone;
         
         console.log("email2"+laundromatEmail);
     
         let sql=`INSERT INTO orders (orderDate,orderTime,preferedDeliveryDate,preferences,userEmail
-            ,laundromatEmail,laundromatName,laundromatAddress,orderStatus,ownerID,customerID,customerAddress)
+            ,laundromatEmail,laundromatName,laundromatAddress,orderStatus,ownerID,customerID,customerAddress,ownerPhone,customerPhone)
             VALUES('${req.body.orderDate}','${req.body.orderTime}','${req.body.preferedDeliveryDate}','${req.body.preferences}','${req.user.email}',
-            '${laundromatEmail}','${laundromatName}','${address}','placed','${ID}','${req.user.ID}','${req.user.address}');`;
+            '${laundromatEmail}','${laundromatName}','${address}','placed','${ID}','${req.user.ID}','${req.user.address}','${ownerPhone}','${req.user.phone_number}');`;
     
         db.query(sql,(err,results)=>{
             console.log(sql);

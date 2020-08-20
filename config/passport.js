@@ -3,12 +3,12 @@ const LocalStrategy = require('passport-local').Strategy;
 module.exports=function(passport,database){
 
 	passport.serializeUser(function(user, done) {
-        done(null, user.email);
+        done(null, user.ID);
       });
       
-    passport.deserializeUser(function(email, done) {
-		const sql="SELECT * FROM User WHERE email='"+email+"';";
-		const sql2="SELECT * FROM claimedLaundromats WHERE email='"+email+"';";
+    passport.deserializeUser(function(ID, done) {
+		const sql="SELECT * FROM User WHERE ID='"+ID+"';";
+		const sql2="SELECT * FROM claimedLaundromats WHERE ID='"+ID+"';";
 		database.query(sql, function (err, result, fields) {
 			
 			if(!result.length){

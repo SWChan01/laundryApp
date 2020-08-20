@@ -168,8 +168,8 @@ router.put("/notifyPickup/:orderID",(req,res)=>{
 
 router.delete("/cancelOrder/:orderID",(req,res)=>{
     let ID=req.params.orderID;
-
     let query=`SELECT * FROM orders WHERE orderID=${ID}`;
+    console.log(query);
     db.query(query,(err,result)=>{
         if (err) throw err;
 
@@ -191,7 +191,7 @@ router.delete("/cancelOrder/:orderID",(req,res)=>{
                 if(err) throw err;
                 console.log("this is result "+JSON.stringify(result));
                 let customrEmail=result[0].userEmail;
-                let ownerEmail=result[0].ownerEmail;
+                let ownerEmail=result[0].laundromatEmail;
                 let laundromatName=result[0].laundromatName;
 
         
