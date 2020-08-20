@@ -1,12 +1,30 @@
-<h1>{{results.0.laundromatName}}</h1>
-<h1>{{results.0.laundromatAddress}}</h1>
-    
-
 {{#if isClaimed}}
 
-    <div class="container">
-        <p>this business is claimed.</p>
-        <p>current price per pound:{{results.0.pricePerPound}}</p>
-        <a href="/newOrder/name={{results.0.laundromatName}}address={{results.0.laundromatAddress}}"><button>Start an order!</button></a>
+    <div class="container text-center mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h2>{{results.0.laundromatName}}</h2>
+                <h2>{{results.0.laundromatAddress}}</h2>
+            </div>
+            <div class="card-body">
+                <div class="mt-5">
+                    <h4>Owner name:      <i>{{results.0.ownerName}}</i></h4>
+                    <h4>Laundromat email:    <i>{{results.0.email}}</i></h4>
+                    <h4>Phone number:     <i>{{results.0.ownerPhone}}</i></h4>
+                    <h4>Price per pound: <i>{{results.0.pricePerPound}}</i></h4>
+                </div>
+                <div class="mt-5">
+                    <a href="/newOrder/name={{results.0.laundromatName}}address={{results.0.laundromatAddress}}"><button class="btn btn-primary">Start an order!</button></a>
+                </div>
+            </div>
+        </div>
+
     </div>
 {{/if}}
+
+
+<style type="text/css">
+    .card{
+        height:500px
+    }
+</style>
