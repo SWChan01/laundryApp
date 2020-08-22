@@ -227,6 +227,54 @@ router.delete("/cancelOrder/:orderID",(req,res)=>{
         }
 
     });
+});
+
+
+router.put("/orderDelivered/:orderID",(req,res)=>{
+    console.log("deliveryyyyyyyyyyyyyyyyyyyyy")
+    let ID=req.params.orderID;
+    let query=`SELECT * FROM orders WHERE orderID=${ID}`;
+    db.query(query,(err,result)=>{
+        if(result[0].orderStatus=="Accepted"){
+            req.flash("message","Action failed ! Please pick up the laundry first and deliver it once service is done!");
+            return res.redirect('/myOrders');
+        }
+    
+        else if(result[0].orderStatus=="placed"){
+            req.flash("message","Action failed ! Please accept the order then pick it up and then deliver once service is finished!");
+            return res.redirect('/myOrders');
+        }
+        else if(result[0].orderStatus=="Picked up"){
+            let sql=`UPDATE orders SET orderStatus='Delivered' WHERE orderID='${ID}'`
+                db.query(sql,(err,xy)=>{
+                    if(err) throw err;
+                    console.log("this is result "+JSON.stringify(result));
+                    let customrEmail=result[0].userEmail;
+                    let ownerEmail=result[0].laundromatEmail;
+                    let laundromatName=result[0].laundromatName;
+    
+            
+                    //send mail to customer
+                    transporter.sendMail({
+                        from:"laundryApp",
+                        to:customrEmail,
+                        subject:"Your order has been delivered!",
+                        text:"Dear customer, your order has been delivered! Please rate the service in the orders page ",
+                        html:""
+                    });
+                    res.json(result)
+    
+                });
+        }
+    });
+
+
+
+
+
+
+
+
 })
 
 

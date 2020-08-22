@@ -57,18 +57,22 @@
 
 
                 else if(status=="owner"){
-                    body+="<tr>";
-                    body+="<td>"+result[i].orderID+"</td>";
-                    body+="<td>"+result[i].orderDate+"</td>";
-                    body+="<td>"+result[i].orderStatus+"</td>";
-                    body+="<td>"+result[i].customerName+"</td>"
-                    body+="<td>"+result[i].userEmail+"</td>";
-                    body+="<td class=address>"+result[i].customerAddress+"</td>";
-                    
-                   // document.getElementById("ownerDropdown").getElementsByClassName("dropdown")[0].id="order#"+result[i].orderID;
-                    body+="<td>"+document.getElementById("ownerDropdown").innerHTML+"</td>";
 
-                    body+="</tr>";
+                    if(result[i].orderStatus!="Delivered"){
+
+                        body+="<tr>";
+                        body+="<td>"+result[i].orderID+"</td>";
+                        body+="<td>"+result[i].orderDate+"</td>";
+                        body+="<td>"+result[i].orderStatus+"</td>";
+                        body+="<td>"+result[i].customerName+"</td>"
+                        body+="<td>"+result[i].userEmail+"</td>";
+                        body+="<td class=address>"+result[i].customerAddress+"</td>";
+                        
+                        // document.getElementById("ownerDropdown").getElementsByClassName("dropdown")[0].id="order#"+result[i].orderID;
+                        body+="<td>"+document.getElementById("ownerDropdown").innerHTML+"</td>";
+
+                        body+="</tr>";
+                    }
                 }
             }
 
@@ -129,6 +133,22 @@
 
             }
 
+            else if(option=="Order delivered"){
+                let target=($(e.target).parent().parent().parent().prev().prev().prev().prev().prev().prev()).text();
+                console.log("order delivered")
+                $.ajax({
+                    url:`/api/orders/orderDelivered/${target}`,
+                    type:'PUT',
+                    success:function(){
+                        location.reload();
+                    },
+                    error:function(err){
+                        console.log(err);
+                    }
+                })
+
+            }
+
             
 
 
@@ -154,7 +174,7 @@
         </button>
         <div class="dropdown-menu" >
             <a class="dropdown-item option" href="">Cancel order</a>
-            <a class="dropdown-item option" href="">Contact owner</a>
+            <a class="dropdown-item option" href="">Rate service</a>
         </div>
     </div>
 
@@ -171,22 +191,13 @@
         <div class="dropdown-menu" >
             <a class="dropdown-item option" href="">Accept order</a>
             <a class="dropdown-item option" href="">Notify pickup</a>
+            <a class="dropdown-item option" href="">Order delivered</a>
             <a class="dropdown-item option" href="">Cancel order</a>
-            <a class="dropdown-item option" href="">Contact customer</a>
         </div>
     </div>
 
 
 </script>
-
-
-
-
-
-
-
-
-
 
 
 
