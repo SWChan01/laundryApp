@@ -79,7 +79,7 @@ exports.registerCustomer=(req,res)=>{
 
 exports.searchLaundromat=(req,res)=>{
     console.log(req.body.zipcode);
-    let request=`https://maps.googleapis.com/maps/api/place/textsearch/json?query=laundromats+"+req.body.zipcode+"&key=${process.env.API_KEY}`;
+    let request=`https://maps.googleapis.com/maps/api/place/textsearch/json?query=laundromats in zipcode ${req.body.zipcode}&key=${process.env.API_KEY}`;
     const xmlHttp = new XMLHttpRequest();
     console.log("readyState = " + this.readyState + ", status = " + this.status);
     xmlHttp.onreadystatechange = function() { 

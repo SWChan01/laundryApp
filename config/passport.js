@@ -59,7 +59,7 @@ module.exports=function(passport,database){
 
 					else{
 
-						let sql="SELECT * FROM claimedLaundromats WHERE email='"+email+"' AND password='"+password+"';";
+						let sql=`SELECT * FROM claimedLaundromats WHERE email='${email}'`
 						console.log(sql);
 		
 						database.query(sql, function (err, result, fields) {
@@ -68,15 +68,25 @@ module.exports=function(passport,database){
 		
 							if(!result.length){
 								console.log("iorhgeaio");
-								req.flash("message","Invalid email or password! Please try again!")
+								req.flash("message","Invalid email or password! Please try again!");
 								return done(null,false);
 							}
-							
-		
-							
-							
-							console.log(result[0])
-							return done(null, result[0]);	
+							else{
+								bcrypt.compare(password,result[0].password,(err,end)=>{
+									if(end==true){
+										req.flash("message","Welcome!");
+										console.log(result[0])
+										return done(null, result[0]);	
+									}else{
+										req.flash("message","Invalid email or password! Please try again!");
+										return done(null,false);
+									}
+								})
+							}
+
+
+
+	
 		
 		
 						})
