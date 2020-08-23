@@ -144,6 +144,8 @@ app.get('/myOrders',(req,res)=>{
     res.render('order/myOrders',{message:req.flash("message")});
 });
 
+app.post("/myOrders",orderController.submitReview);
+
 
 
 

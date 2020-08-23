@@ -184,6 +184,11 @@ router.delete("/cancelOrder/:orderID",(req,res)=>{
             return res.redirect('/myOrders');
         }
 
+        else if(result[0].orderStatus=="Delivered"){
+            req.flash("message","Action failed ! You can not cancel an order that is already delivered!");
+            return res.redirect('/myOrders');
+        }
+
         else if(result[0].orderStatus=="placed"){
             //find ID of owner and customer then send mail to notify picked up order
             let sql=`SELECT * FROM orders WHERE orderID='${ID}'`
@@ -275,7 +280,26 @@ router.put("/orderDelivered/:orderID",(req,res)=>{
 
 
 
-})
+});
+
+router.put("/rateOrder/:orderID",(req,res)=>{
+    let ID=req.params.orderID;
+    let query=`SELECT * FROM orders WHERE orderID=${ID}`;
+    db.query(query,(err,result)=>{
+        if (err) throw err;
+        if(result[0].orderStatus!="Delivered"){
+            req.flash("message","Action failed ! You can not rate this order until it is delivered!");
+            return res.redirect('/myOrders');
+        }
+        else{
+            console.log("it is delivered")
+            res.json(result);
+        }
+    });
+
+
+
+});
 
 
 module.exports=router;

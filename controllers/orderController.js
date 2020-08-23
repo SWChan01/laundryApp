@@ -68,3 +68,67 @@ exports.newOrderPost=(req,res)=>{
 
 
 };
+
+
+exports.submitReview=(req,res)=>{
+    console.log("in post review")
+
+
+    let rating=parseInt(req.body.star,10);
+    let ID=req.body.containID;
+
+    let sql=`SELECT * FROM orders WHERE orderID='${ID}'`
+
+    db.query(sql,(err,result)=>{
+        if (err) throw err;
+        
+        let laundromatID=result[0].ownerID;
+        let sql2=`SELECT * FROM claimedLaundromats WHERE ID='${laundromatID}'`;
+
+        db.query(sql2,(err,result)=>{
+            if (err) throw err;
+            let currentRating=result[0].rating;
+            let total=result[0].ratingNumbers;
+            
+            //first rating ever
+            if(currentRating==0 && total==0){
+                currentRating=rating;
+                total++;
+                db.query(`UPDATE claimedLaundromats SET rating='${currentRating}',ratingNumbers='${total}' WHERE ID='${laundromatID}'`);
+            }
+
+            else{
+                //get the total sum of rating
+                let total_sum=currentRating*total;
+
+                //add the new review
+                total_sum+=rating;
+
+
+                //divide by the new total
+                total++;
+                console.log("total sum"+total_sum);
+                console.log("total"+total)
+                let newRating=total_sum/total;
+
+                //update rating and total ratings
+                console.log("new rating:"+newRating)
+                db.query(`UPDATE claimedLaundromats SET rating='${newRating}',ratingNumbers='${total}' WHERE ID='${laundromatID}'`);
+            }
+            
+            //delete the order
+            db.query(`DELETE FROM orders WHERE orderID='${ID}'`);
+
+            req.flash("message","Thank you for submitting this review!")
+            res.redirect("/myOrders");
+
+
+
+
+        });
+
+
+    });
+
+
+}
