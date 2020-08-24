@@ -9,8 +9,6 @@
             console.log("hi");
             let newVal= $(element).prev().val();
             console.log(newVal);
-
-
             $.ajax({
                 url:`/api/userData/${command}/${newVal}/${userID}`,
                 type:'PUT',
@@ -18,15 +16,7 @@
                     location.reload();
                 }
             });
-            
-
-
-
         }
-
-
-
-
 
     }
 

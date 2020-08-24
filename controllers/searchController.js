@@ -1,10 +1,9 @@
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const url = require('url');
 const db=require('../db');
-exports.zipcodeSearch=(req,res)=>{
-    //searches for claimed laundromats that matches the given zipcode
-    console.log(req.body.zipcode);
 
+//searches for claimed laundromats that matches the given zipcode and renders it
+exports.zipcodeSearch=(req,res)=>{
 
     let sql=`SELECT * FROM claimedLaundromats WHERE zipcode='${req.body.zipcode}'`;
 
@@ -14,22 +13,10 @@ exports.zipcodeSearch=(req,res)=>{
         res.render('../views/showLaundromats.hbs',result);
     })
 
-
-
-
-
-    
 };
     
 
 exports.laundromatSearch=(req,res)=>{
-    //var url_parts = url.parse(req.url);
-    //console.log(url_parts);
-    //console.log(url_parts.pathname);
-    //console.log(url_parts.pathname.replace("/laundromatPage",""));
-    //const query= decodeURI(url_parts.pathname).replace("/laundromatPage/","");
-    //console.log("query is"+query);
-
 
     const laundromatName=req.params.name;
     const laundromatAddress=req.params.address;
@@ -42,20 +29,5 @@ exports.laundromatSearch=(req,res)=>{
         let a={results:response,isClaimed};
         res.render('../views/laundromats/businessPage.hbs',a);
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 };

@@ -17,7 +17,6 @@ router.get("/userOrder",(req,res)=>{
     let sql=`SELECT * FROM orders WHERE customerID='${req.user.ID}'`;
     db.query(sql,(err,results)=>{
         if (err) throw err;
-      //  console.log("this is res: "+JSON.stringify(results));
 
         //user is an owner
         if(!results.length){
@@ -61,8 +60,6 @@ router.put("/acceptOrder/:orderID",(req,res)=>{
 
             db.query(sql,(err,result)=>{
                 if(err) throw err;
-                console.log("order changed to accepted");
-                console.log("this is result "+JSON.stringify(result));
                 res.json(result);
             });
         
@@ -72,7 +69,6 @@ router.put("/acceptOrder/:orderID",(req,res)=>{
         
             db.query(sql2,(err,result)=>{
                 if(err) throw err;
-                console.log("this is result "+JSON.stringify(result));
                 let customrEmail=result[0].userEmail;
                 let ownerEmail=result[0].ownerEmail;
                 let laundromatName=result[0].laundromatName;
@@ -128,7 +124,6 @@ router.put("/notifyPickup/:orderID",(req,res)=>{
 
             db.query(sql,(err,result)=>{
                 if(err) throw err;
-                console.log("order changed to accepted");
                 res.json(result);
             });
 
@@ -169,7 +164,6 @@ router.put("/notifyPickup/:orderID",(req,res)=>{
 router.delete("/cancelOrder/:orderID",(req,res)=>{
     let ID=req.params.orderID;
     let query=`SELECT * FROM orders WHERE orderID=${ID}`;
-    console.log(query);
     db.query(query,(err,result)=>{
         if (err) throw err;
 
@@ -236,7 +230,6 @@ router.delete("/cancelOrder/:orderID",(req,res)=>{
 
 
 router.put("/orderDelivered/:orderID",(req,res)=>{
-    console.log("deliveryyyyyyyyyyyyyyyyyyyyy")
     let ID=req.params.orderID;
     let query=`SELECT * FROM orders WHERE orderID=${ID}`;
     db.query(query,(err,result)=>{
@@ -292,7 +285,6 @@ router.put("/rateOrder/:orderID",(req,res)=>{
             return res.redirect('/myOrders');
         }
         else{
-            console.log("it is delivered")
             res.json(result);
         }
     });

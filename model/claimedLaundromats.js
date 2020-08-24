@@ -7,11 +7,9 @@ exports.getLaundromatByField=(field,value)=>{
     db.query(sql, function (err, result, fields) {
         if (err) throw err;
         if(!result.length){
-            console.log("iorhgeaio");
             return null;
         }
                 
-        console.log("hwrwrewger a");
         console.log(result);
         return result; 	
 

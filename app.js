@@ -129,8 +129,6 @@ app.post('/newOrder/:laundromatInfo',orderController.newOrderPost);
 
 
 app.get('/profile',(req,res)=>{
-    //console.log("user:"+JSON.stringify(req.user));
-    //console.log(req.user);
     res.render('profile/profilePage',req.user);
 });
 

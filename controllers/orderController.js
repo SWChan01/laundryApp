@@ -1,42 +1,26 @@
 const db=require("../db");
 const transporter=require("../config/mailer").transporter;
 exports.newOrderPost=(req,res)=>{
-    console.log("ujreahgiohraeioghj");
-    console.log(req.body);
-    //console.log(req.user.email);
-    
-    console.log(req.url);
     let address=decodeURI((req.url).split("name=")[1].split("address=")[1]);
-    console.log(address);
-
-
 
     let x=`SELECT * FROM claimedLaundromats WHERE laundromatAddress='${address}'`;
     db.query(x,(err,res)=>{
         if(err) throw err;
         console.log(res);
 
-        let laundromatEmail;
-        let laundromatName;
-        let ID;
-        laundromatEmail=res[0].email;
-        console.log("email"+laundromatEmail);
-        laundromatName=res[0].laundromatName;
-        ID=res[0].ID;
-        ownerPhone=res[0].ownerPhone;
+        let laundromatEmail=res[0].email;
+        let laundromatName=res[0].laundromatName;
+        let ID=res[0].ID;
+        let ownerPhone=res[0].ownerPhone;
         
-        console.log("email2"+laundromatEmail);
     
-        let sql=`INSERT INTO orders (orderDate,orderTime,preferedDeliveryDate,preferences,userEmail
+        let sql=`INSERT INTO orders (preferedDeliveryDate,preferences,userEmail
             ,laundromatEmail,laundromatName,laundromatAddress,orderStatus,ownerID,customerID,customerAddress,ownerPhone,customerPhone)
-            VALUES('${req.body.orderDate}','${req.body.orderTime}','${req.body.preferedDeliveryDate}','${req.body.preferences}','${req.user.email}',
+            VALUES('${req.body.preferedDeliveryDate}','${req.body.preferences}','${req.user.email}',
             '${laundromatEmail}','${laundromatName}','${address}','placed','${ID}','${req.user.ID}','${req.user.address}','${ownerPhone}','${req.user.phone_number}');`;
     
         db.query(sql,(err,results)=>{
-            console.log(sql);
             if(err) throw err;
-            console.log("1 ORDER INSERTED");
-            console.log(results);
 
             //send email to owner
             transporter.sendMail({
@@ -71,7 +55,6 @@ exports.newOrderPost=(req,res)=>{
 
 
 exports.submitReview=(req,res)=>{
-    console.log("in post review")
 
 
     let rating=parseInt(req.body.star,10);

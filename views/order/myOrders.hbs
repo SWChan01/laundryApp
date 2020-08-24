@@ -41,9 +41,6 @@
 
         $.ajax({url:'/api/orders/userOrder', success: function(result){
             console.log(result);
-            //$("#first").html(JSON.stringify(result));
-            //$("#first").html(userEmail);
-
 
             if(status=="customer"){
                 let header="<th>Order ID</th><th>Prefered delivery date</th><th>Order status</th><th>laundromat name</th><th>laundromat phone#</th><th>laundromat address</th><th>Actions</th>";
@@ -192,14 +189,6 @@
             }
 
         });
-
-
-
-
-
-
-
-
 
     });
 </script>

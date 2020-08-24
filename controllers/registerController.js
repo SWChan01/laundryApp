@@ -4,14 +4,14 @@ const url = require('url');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 exports.registerCustomer=(req,res)=>{
-
-
     //check if email/address/phone_number is already registered
 
     let checkEmail=`SELECT * FROM User WHERE email='${req.body.email}'`;
     let checkAddress=`SELECT * FROM User WHERE address='${req.body.address}'`;
     let checkPhone=`SELECT * FROM User WHERE phone_number='${req.body.phone_number}'`;
 
+
+    //this verifies that there will be no repeated email/address/phone nunmber for the customer using promises
     const promise=
         new Promise((resolve,reject)=>{
             database.query(checkEmail,(err,result)=>{
@@ -81,9 +81,7 @@ exports.searchLaundromat=(req,res)=>{
     console.log(req.body.zipcode);
     let request=`https://maps.googleapis.com/maps/api/place/textsearch/json?query=laundromats in zipcode ${req.body.zipcode}&key=${process.env.API_KEY}`;
     const xmlHttp = new XMLHttpRequest();
-    console.log("readyState = " + this.readyState + ", status = " + this.status);
     xmlHttp.onreadystatechange = function() { 
-        console.log("readyState = " + this.readyState + ", status = " + this.status);
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
             let result=JSON.parse(xmlHttp.responseText);
             console.log(result);
@@ -131,9 +129,6 @@ exports.registerOwner=(req,res)=>{
             })
         })
         .then(()=>{
-            console.log(req.body);
-
-
             bcrypt.hash(req.body.password,10,(err,hash)=>{
                 sql=`INSERT INTO claimedLaundromats (laundromatName,laundromatAddress,ownerName,email,password,ownerPhone,zipcode) VALUES ('${req.body.laundromatName}'
                 ,'${req.body.laundromatAddress}','${req.body.name}','${req.body.email}','${hash}','${req.body.phone_number}','${req.body.zipcode}');`;
@@ -141,7 +136,6 @@ exports.registerOwner=(req,res)=>{
                 console.log(sql);
                 database.query(sql, function (err, result) {
                     if (err) throw err;
-                    console.log("1 record inserted");
                 });
                 req.flash("message","Congratulations! You have successfully signed up as a owner!")
                 res.redirect('/');
@@ -149,7 +143,6 @@ exports.registerOwner=(req,res)=>{
         })
         
         .catch(msg=>{
-                console.log("it got here");
                 req.flash("message",msg);
                 res.redirect('/register/registerCustomer');
         });
