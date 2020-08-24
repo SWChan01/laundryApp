@@ -26,6 +26,17 @@
         }});
 
 
+        function convertDate(inStr){
+            if((typeof inStr == 'undefined') || (inStr == null) || 
+                (inStr.length <= 0)) {
+                return '';
+                }
+                var year = inStr.substring(0, 4);
+                var month = inStr.substring(5, 7);
+                var day = inStr.substring(8, 10);
+                return month + '/' + day + '/' + year;
+        }
+
 
 
         $.ajax({url:'/api/orders/userOrder', success: function(result){
@@ -35,10 +46,10 @@
 
 
             if(status=="customer"){
-                let header="<th>Order ID</th><th>Order Date</th><th>Order status</th><th>laundromat name</th><th>laundromat phone#</th><th>laundromat address</th><th>Actions</th>";
+                let header="<th>Order ID</th><th>Prefered delivery date</th><th>Order status</th><th>laundromat name</th><th>laundromat phone#</th><th>laundromat address</th><th>Actions</th>";
                 $("#th").html(header);
             }else if(status=="owner"){
-                let header="<th>Order ID</th><th>Order Date</th><th>Order status</th><th>Customer name</th><th>Cusomter email</th><th>Customer address</th><th>Actions</th>";
+                let header="<th>Order ID</th><th>Prefered delivery date</th><th>Order status</th><th>Customer name</th><th>Cusomter email</th><th>Customer address</th><th>Actions</th>";
                 $("#th").html(header);
             }
 
@@ -58,7 +69,7 @@
 
                     body+="<tr>";
                     body+="<td>"+result[i].orderID+"</td>";
-                    body+="<td>"+result[i].orderDate+"</td>";
+                    body+="<td>"+convertDate(result[i].preferedDeliveryDate)+"</td>";
                     body+="<td>"+result[i].orderStatus+"</td>";
                     body+="<td>"+result[i].laundromatName+"</td>";
                     body+="<td>"+result[i].ownerPhone+"</td>";
@@ -76,7 +87,7 @@
 
                         body+="<tr>";
                         body+="<td>"+result[i].orderID+"</td>";
-                        body+="<td>"+result[i].orderDate+"</td>";
+                        body+="<td>"+convertDate(result[i].preferedDeliveryDate)+"</td>";
                         body+="<td>"+result[i].orderStatus+"</td>";
                         body+="<td>"+result[i].customerName+"</td>"
                         body+="<td>"+result[i].userEmail+"</td>";
