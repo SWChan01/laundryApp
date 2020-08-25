@@ -13,14 +13,12 @@ module.exports=function(passport,database){
 		database.query(sql, function (err, result, fields) {
 			
 			if(!result.length){
-				console.log("this is an owner")
 				database.query(sql2, function (err, result, fields){
 					return done(err,result[0])
 				});
 			}
 		
 			else{
-				console.log("there is a customer!")
 				return done(err, result[0]);	
 			}
 		});

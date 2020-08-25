@@ -47,7 +47,6 @@ app.use(function (req, res, next) {
         bool=true;
         if(req.user.status=="customer") bool=false;
     }
-    console.log("this is bool "+bool);
     res.locals.status=bool;
     next();
 });
