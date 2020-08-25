@@ -145,7 +145,6 @@ router.delete("/cancelOrder/:orderID",async (req,res)=>{
     else if(result[0].orderStatus=="placed"){
         //find ID of owner and customer then send mail to notify picked up order
         
-        console.log("this is result "+JSON.stringify(result));
         let customrEmail=result[0].userEmail;
         let ownerEmail=result[0].laundromatEmail;
         let laundromatName=result[0].laundromatName;

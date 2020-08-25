@@ -43,10 +43,10 @@
             console.log(result);
 
             if(status=="customer"){
-                let header="<th>Order ID</th><th>Prefered delivery date</th><th>Order status</th><th>laundromat name</th><th>laundromat phone#</th><th>laundromat address</th><th>Actions</th>";
+                let header="<th>Order ID</th><th>Prefered delivery date</th><th>Order status</th><th>Laundromat name</th><th>Laundromat phone#</th><th>Laundromat address</th><th>Comments</th><th>Actions</th>";
                 $("#th").html(header);
             }else if(status=="owner"){
-                let header="<th>Order ID</th><th>Prefered delivery date</th><th>Order status</th><th>Customer name</th><th>Cusomter email</th><th>Customer address</th><th>Actions</th>";
+                let header="<th>Order ID</th><th>Prefered delivery date</th><th>Order status</th><th>Customer name</th><th>Cusomter email</th><th>Customer address</th><th>Preference</th><th>Actions</th>";
                 $("#th").html(header);
             }
 
@@ -71,6 +71,7 @@
                     body+="<td>"+result[i].laundromatName+"</td>";
                     body+="<td>"+result[i].ownerPhone+"</td>";
                     body+="<td>"+result[i].laundromatAddress+"</td>";
+                    body+="<td class=address>"+result[i].preferences+"</td>";
                     body+="<td>"+document.getElementById("customerDropdown").innerHTML+"</td>";
 
                     body+="</tr>";
@@ -89,8 +90,7 @@
                         body+="<td>"+result[i].customerName+"</td>"
                         body+="<td>"+result[i].userEmail+"</td>";
                         body+="<td class=address>"+result[i].customerAddress+"</td>";
-                        
-                        // document.getElementById("ownerDropdown").getElementsByClassName("dropdown")[0].id="order#"+result[i].orderID;
+                        body+="<td class=address>"+result[i].preferences+"</td>";
                         body+="<td>"+document.getElementById("ownerDropdown").innerHTML+"</td>";
 
                         body+="</tr>";

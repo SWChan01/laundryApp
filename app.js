@@ -86,13 +86,13 @@ app.get('/register/registerCustomer',(req,res)=>{
 app.post('/register/registerCustomer',registerController.registerCustomer);
 
 app.get('/register/pickLaundromat',(req,res)=>{
-    res.render('register/pickLaundromat');
+    res.render('register/pickLaundromat',{message:req.flash("message")});
 });
 
 app.post('/register/pickLaundromat',registerController.searchLaundromat);
 
 app.get('/register/ownerRegister/:laundromatName/:laundromatAddress',(req,res)=>{
-    res.render('register/register_owner');
+    res.render('register/register_owner',{message:req.flash("message")});
 });
 
 app.post('/register/ownerRegister/:laundromatName/:laundromatAddress',registerController.registerOwner);

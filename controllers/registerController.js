@@ -68,7 +68,6 @@ exports.registerCustomer=(req,res)=>{
         })
         
         .catch(msg=>{
-                console.log("it got here");
                 req.flash("message",msg);
                 res.redirect('/register/registerCustomer');
         });
@@ -143,8 +142,9 @@ exports.registerOwner=(req,res)=>{
         })
         
         .catch(msg=>{
+            console.log(msg)
                 req.flash("message",msg);
-                res.redirect('/register/registerCustomer');
+                res.redirect('/register/pickLaundromat');
         });
 
 };
