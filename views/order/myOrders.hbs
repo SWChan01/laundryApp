@@ -17,6 +17,19 @@
             }
         });
 
+        $("#dialog2").dialog({
+            autoOpen:false,
+            show: {
+                effect: "blind",
+                duration: 1000,
+            },
+            resizable: false,
+            hide: {
+                effect: "explode",
+                duration: 1000
+            }
+        });
+
 
         $.ajax({url:'/api/userData', success: function(res){
             userEmail=res.userEmail
@@ -43,10 +56,10 @@
             console.log(result);
 
             if(status=="customer"){
-                let header="<th>Order ID</th><th>Prefered delivery date</th><th>Order status</th><th>Laundromat name</th><th>Laundromat phone#</th><th>Laundromat address</th><th>Comments</th><th>Actions</th>";
+                let header="<th>Order ID</th><th>Prefered delivery date</th><th>Order status</th><th>Laundromat name</th><th>Laundromat phone#</th><th>Laundromat address</th><th>Comments</th><th>Estimated Delivery Time</th><th>Order Price</th><th>Actions</th>";
                 $("#th").html(header);
             }else if(status=="owner"){
-                let header="<th>Order ID</th><th>Prefered delivery date</th><th>Order status</th><th>Customer name</th><th>Cusomter email</th><th>Customer address</th><th>Preference</th><th>Actions</th>";
+                let header="<th>Order ID</th><th>Prefered delivery date</th><th>Order status</th><th>Customer name</th><th>Cusomter email</th><th>Customer address</th><th>Preference</th><th>Estimated Delivery Time</th><th>Order Price</th><th>Actions</th>";
                 $("#th").html(header);
             }
 
@@ -71,7 +84,11 @@
                     body+="<td>"+result[i].laundromatName+"</td>";
                     body+="<td>"+result[i].ownerPhone+"</td>";
                     body+="<td>"+result[i].laundromatAddress+"</td>";
-                    body+="<td class=address>"+result[i].preferences+"</td>";
+                    body+="<td>"+result[i].preferences+"</td>";
+                    if(result[i].estimatedDeliveryTime==null || result[i].estimatedDeliveryTime==undefined) body+="<td>Not available</td>";
+                    else body+="<td>"+result[i].estimatedDeliveryTime+"</td>";
+                    if(result[i].orderPrice==null || result[i].orderPrice==undefined) body+="<td>Not available</td>";
+                    else body+="<td>"+`$${result[i].orderPrice}`+"</td>";
                     body+="<td>"+document.getElementById("customerDropdown").innerHTML+"</td>";
 
                     body+="</tr>";
@@ -90,7 +107,11 @@
                         body+="<td>"+result[i].customerName+"</td>"
                         body+="<td>"+result[i].userEmail+"</td>";
                         body+="<td class=address>"+result[i].customerAddress+"</td>";
-                        body+="<td class=address>"+result[i].preferences+"</td>";
+                        body+="<td>"+result[i].preferences+"</td>";
+                        if(result[i].estimatedDeliveryTime==null || result[i].estimatedDeliveryTime==undefined) body+="<td>Not available</td>";
+                        else body+="<td>"+result[i].estimatedDeliveryTime+"</td>";
+                        if(result[i].orderPrice==null || result[i].orderPrice==undefined) body+="<td>Not available</td>";
+                        else body+="<td>"+`$${result[i].orderPrice}`+"</td>";
                         body+="<td>"+document.getElementById("ownerDropdown").innerHTML+"</td>";
 
                         body+="</tr>";
@@ -107,9 +128,8 @@
         $(document).on("click",".option",(e)=>{
             let option=$(e.target).text();
             console.log(option);
-
+            let target = ($(e.target).parent().parent().parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text());
             if(option=="Accept order"){
-                let target = ($(e.target).parent().parent().parent().prev().prev().prev().prev().prev().prev()).text();
                 console.log(target);
                 
                 $.ajax({
@@ -122,14 +142,15 @@
             }
 
             else if(option=="Notify pickup"){
-                let target=($(e.target).parent().parent().parent().prev().prev().prev().prev().prev().prev()).text();
                 console.log(target);
                 
                 $.ajax({
                     url:`/api/orders/notifyPickup/${target}`,
                     type:'PUT',
                     success:function(){
-                        location.reload();
+                        $('#orderID').val(`${target}`)
+                        $('#dialog2').dialog("open");
+                        //location.reload();
                     },
                     error:function(err){
                         console.log(err);
@@ -139,7 +160,6 @@
             
             else if(option=="Cancel order"){
                 console.log("reguhoigre")
-                let target=($(e.target).parent().parent().parent().prev().prev().prev().prev().prev().prev()).text();
                 console.log(target);
 
                 $.ajax({
@@ -156,7 +176,6 @@
             }
 
             else if(option=="Order delivered"){
-                let target=($(e.target).parent().parent().parent().prev().prev().prev().prev().prev().prev()).text();
                 console.log("order delivered")
                 $.ajax({
                     url:`/api/orders/orderDelivered/${target}`,
@@ -171,7 +190,6 @@
             }
 
             else if(option=="Rate service"){
-                let target=($(e.target).parent().parent().parent().prev().prev().prev().prev().prev().prev()).text();
                 console.log("rating service");
                 $.ajax({
                     url:`/api/orders/rateOrder/${target}`,
@@ -219,7 +237,7 @@
         </button>
         <div class="dropdown-menu" >
             <a class="dropdown-item option" href="">Accept order</a>
-            <a class="dropdown-item option" href="">Notify pickup</a>
+            <a class="dropdown-item option">Notify pickup</a>
             <a class="dropdown-item option" href="">Order delivered</a>
             <a class="dropdown-item option" href="">Cancel order</a>
         </div>
@@ -247,7 +265,7 @@
 {{/if}}
 
 
- <div class="stars" id="dialog">
+<div class="stars" id="dialog">
     <p>Please submit a review for this order</p>
     <form action="" method="POST">
         <div class="mr-4">
@@ -266,6 +284,21 @@
         <button type="submit" class="btn btn-primary" id="btnSubmit" value="Submit">Submit</button>
     </form>
 </div>
+
+
+<div id="dialog2">
+    <form action="/orderDeliveryTime" method="POST">
+        <label>Select estimated delivery time on this order</label>
+        <input type="time" name="estimatedDeliveryTime">
+        <br></br>
+        <br><label>Input the price of this order</label></br>
+        <span class="currency">$<input type="number" step="0.01" name="orderPrice"></span>
+        <input type="text" name="orderID" id="orderID" style="display: none;">
+        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+    </form>
+</div>
+
+
 
 
 
@@ -329,4 +362,12 @@ label.star:before {
 #btnSubmit{
     margin-left:80px;
 }
+
+
+
+
+
+
+
+
 </style>

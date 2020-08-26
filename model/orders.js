@@ -81,3 +81,24 @@ exports.deliverOrder=(ID)=>{
         })
     })
 }
+
+exports.updateDeliveryTimebyID=(time,ID)=>{
+    let sql=`UPDATE orders SET estimatedDeliveryTime='${time}' WHERE orderID='${ID}'`
+    return new Promise((resolve,reject)=>{
+        db.query(sql,(err,result)=>{
+            if(err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
+
+exports.putInPrice=(price,ID)=>{
+    let sql=`UPDATE orders SET orderPrice='${price}' WHERE orderID='${ID}'`;
+    return new Promise((resolve,reject)=>{
+        db.query(sql,(err,result)=>{
+            if(err) reject(err);
+            resolve(result);
+        })
+    })
+}

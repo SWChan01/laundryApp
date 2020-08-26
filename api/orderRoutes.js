@@ -46,7 +46,7 @@ router.put("/acceptOrder/:orderID",async (req,res)=>{
     }
 
     else if(result[0].orderStatus=="placed"){
-        Orders.acceptOrder(ID);
+        let result=await Orders.acceptOrder(ID);
     
 
         let customrEmail=result[0].userEmail;
@@ -63,7 +63,7 @@ router.put("/acceptOrder/:orderID",async (req,res)=>{
             html:""
         });
     
-    
+        res.json(result);
     
     
     }
@@ -94,7 +94,7 @@ router.put("/notifyPickup/:orderID",async (req,res)=>{
 
     
     else if(result[0].orderStatus=="Accepted"){
-        Orders.pickupOrder(ID);
+        //Orders.pickupOrder(ID);
         let customrEmail=result[0].userEmail;
         let ownerEmail=result[0].ownerEmail;
         let laundromatName=result[0].laundromatName;
@@ -109,7 +109,7 @@ router.put("/notifyPickup/:orderID",async (req,res)=>{
             html:""
         });
 
-
+        res.json(result);
 
        
 

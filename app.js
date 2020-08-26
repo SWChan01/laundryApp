@@ -143,6 +143,8 @@ app.get('/myOrders',(req,res)=>{
 
 app.post("/myOrders",orderController.submitReview);
 
+app.post('/orderDeliveryTime',orderController.orderDeliveryTime);
+
 
 
 

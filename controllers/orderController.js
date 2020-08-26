@@ -1,5 +1,6 @@
 const db=require("../db");
 const transporter=require("../config/mailer").transporter;
+const Order=require('../model/orders');
 exports.newOrderPost=(req,res)=>{
     let address=decodeURI((req.url).split("name=")[1].split("address=")[1]);
 
@@ -115,3 +116,16 @@ exports.submitReview=(req,res)=>{
 
 
 }
+
+
+exports.orderDeliveryTime=(req,res)=>{
+    console.log(JSON.stringify(req.body));
+
+    //pickup the order,input estimated delivery time
+    Order.pickupOrder(req.body.orderID);
+    Order.updateDeliveryTimebyID(req.body.estimatedDeliveryTime,req.body.orderID);
+    Order.putInPrice(req.body.orderPrice,req.body.orderID);
+
+    res.redirect('/myOrders');
+
+};
