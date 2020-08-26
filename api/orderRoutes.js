@@ -45,7 +45,7 @@ router.put("/acceptOrder/:orderID",async (req,res)=>{
         return res.redirect('/myOrders');
     }
 
-    else if(result[0].orderStatus=="placed"){
+    else if(result[0].orderStatus=="Placed"){
         let result=await Orders.acceptOrder(ID);
     
 
@@ -62,7 +62,8 @@ router.put("/acceptOrder/:orderID",async (req,res)=>{
             text:"Dear customer, your order has been accepted by "+laundromatName,
             html:""
         });
-    
+        
+        req.flash("message","Success! Order is accepted");
         res.json(result);
     
     
@@ -87,7 +88,7 @@ router.put("/notifyPickup/:orderID",async (req,res)=>{
     }
 
     //order is not accepted yet
-    else if(result[0].orderStatus=="placed"){
+    else if(result[0].orderStatus=="Placed"){
         req.flash("message","Action failed ! Order is not accepted yet! Please accept it first!");
         return res.redirect('/myOrders');
     }
@@ -108,7 +109,6 @@ router.put("/notifyPickup/:orderID",async (req,res)=>{
             text:"Dear customer, your order has been picked up by "+laundromatName,
             html:""
         });
-
         res.json(result);
 
        
@@ -142,7 +142,7 @@ router.delete("/cancelOrder/:orderID",async (req,res)=>{
         return res.redirect('/myOrders');
     }
 
-    else if(result[0].orderStatus=="placed"){
+    else if(result[0].orderStatus=="Placed"){
         //find ID of owner and customer then send mail to notify picked up order
         
         let customrEmail=result[0].userEmail;
@@ -170,6 +170,7 @@ router.delete("/cancelOrder/:orderID",async (req,res)=>{
 
         //DELETE the row
         let results= await Orders.deleteOrderByID(ID);
+        req.flash("message","Success!");
         res.json(results);
 
     }
@@ -189,7 +190,7 @@ router.put("/orderDelivered/:orderID", async(req,res)=>{
         return res.redirect('/myOrders');
     }
 
-    else if(result[0].orderStatus=="placed"){
+    else if(result[0].orderStatus=="Placed"){
         req.flash("message","Action failed ! Please accept the order then pick it up and then deliver once service is finished!");
         return res.redirect('/myOrders');
     }
@@ -211,7 +212,8 @@ router.put("/orderDelivered/:orderID", async(req,res)=>{
             text:"Dear customer, your order has been delivered! Please rate the service in the orders page ",
             html:""
         });
-        //res.json(result);
+        req.flash("message","Success!");
+        res.json(result);
 
             
     }

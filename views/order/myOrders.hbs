@@ -137,6 +137,9 @@
                     type:'PUT',
                     success:function(){
                         location.reload();
+                    },
+                    error:()=>{
+                        location.reload();
                     }
                 });
             }
@@ -153,7 +156,7 @@
                         //location.reload();
                     },
                     error:function(err){
-                        console.log(err);
+                        location.reload();
                     }
                 });    
             }
@@ -169,6 +172,7 @@
                         location.reload();
                     },
                     error:function(err){
+                        location.reload();
                         console.log(err);
                     }
                 })
@@ -184,6 +188,7 @@
                         location.reload();
                     },
                     error:function(err){
+                        location.reload();
                         console.log(err);
                     }
                 })
@@ -220,8 +225,8 @@
             Dropdown button
         </button>
         <div class="dropdown-menu" >
-            <a class="dropdown-item option" href="">Cancel order</a>
-            <a class="dropdown-item option"  id="opener">Rate service</a>
+            <button class="dropdown-item option">Cancel order</button>
+            <button class="dropdown-item option"  id="opener">Rate service</button>
         </div>
     </div>
 
@@ -236,10 +241,10 @@
             Dropdown button
         </button>
         <div class="dropdown-menu" >
-            <a class="dropdown-item option" href="">Accept order</a>
-            <a class="dropdown-item option">Notify pickup</a>
-            <a class="dropdown-item option" href="">Order delivered</a>
-            <a class="dropdown-item option" href="">Cancel order</a>
+            <button class="dropdown-item option">Accept order</button>
+            <button class="dropdown-item option">Notify pickup</button>
+            <button class="dropdown-item option">Order delivered</button>
+            <button class="dropdown-item option" href="">Cancel order</button>
         </div>
     </div>
 
