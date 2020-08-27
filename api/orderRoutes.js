@@ -74,7 +74,7 @@ router.put("/acceptOrder/:orderID",async (req,res)=>{
 
 });
 
-//routes for /api/orders/acceptOrder,notify pickup on a order based on its ID field
+//routes for /api/orders/notifyOrder/:orderID,notify pickup on a order based on its ID field
 router.put("/notifyPickup/:orderID",async (req,res)=>{
     let ID=req.params.orderID;
 
@@ -121,7 +121,7 @@ router.put("/notifyPickup/:orderID",async (req,res)=>{
 
 });
 
-
+//routes for /api/orders/cancelOrder/:orderID,deletes an order based on ID
 router.delete("/cancelOrder/:orderID",async (req,res)=>{
     let ID=req.params.orderID;
 
@@ -177,7 +177,7 @@ router.delete("/cancelOrder/:orderID",async (req,res)=>{
 
 });
 
-
+//routes for /api/orders/orderDelivered/:orderID,change order status to delivered based on ID
 router.put("/orderDelivered/:orderID", async(req,res)=>{
     let ID=req.params.orderID;
 
@@ -226,7 +226,7 @@ router.put("/orderDelivered/:orderID", async(req,res)=>{
 
 
 });
-
+//routes for /api/orders/rateOrder/:orderID,prompts the user to rate order and verifies correct order status
 router.put("/rateOrder/:orderID",async(req,res)=>{
     let ID=req.params.orderID;
 

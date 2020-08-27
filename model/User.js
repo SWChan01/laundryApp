@@ -1,6 +1,50 @@
 const db=require("../db");
 
 
+exports.getCustomerByID=(ID)=>{
+    const sql=`SELECT * FROM User WHERE ID='${ID}';`;
+    return new Promise((resolve,reject)=>{
+        db.query(sql,(err,res)=>{
+            if(err) reject(err)
+            resolve(res);
+        })
+    })
+}
+
+
+exports.getOwnerByID=(ID)=>{
+    const sql=`SELECT * FROM claimedLaundromats WHERE ID='${ID}';`;
+    return new Promise((resolve,reject)=>{
+        db.query(sql,(err,res)=>{
+            if(err) reject(err)
+            resolve(res);
+        })
+    })
+}
+
+
+exports.getCustomerByEmail=(email)=>{
+    const sql=`SELECT * FROM User WHERE email='${email}';`;
+    return new Promise((resolve,reject)=>{
+        db.query(sql,(err,res)=>{
+            if(err) reject(err)
+            resolve(res);
+        })
+    })
+}
+
+
+exports.getOwnerByEmail=(email)=>{
+    const sql=`SELECT * FROM claimedLaundromats WHERE email='${email}';`;
+    return new Promise((resolve,reject)=>{
+        db.query(sql,(err,res)=>{
+            if(err) reject(err)
+            resolve(res);
+        })
+    })
+}
+
+
 exports.updateNameByID=(newValue,ID)=>{
     let sql=`UPDATE User SET name='${newValue}' WHERE ID='${ID}'`;
     db.query(sql,(err,res)=>{
