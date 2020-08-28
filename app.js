@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 var flash=require("connect-flash");
 app.use(flash());
 app.use(cookieParser('secret'));
-app.use(session({ cookie: { maxAge: 60000 }, 
+app.use(session({ cookie: { maxAge: 600000 }, 
   secret: 'woot',
   resave: false, 
   saveUninitialized: false})

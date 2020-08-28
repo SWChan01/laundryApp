@@ -13,12 +13,13 @@ exports.newOrderPost=(req,res)=>{
         let laundromatName=res[0].laundromatName;
         let ID=res[0].ID;
         let ownerPhone=res[0].ownerPhone;
+
+        let timeAndDate=req.body.pick_up_time +" at "+req.body.pick_up_date;
         
-    
         let sql=`INSERT INTO orders (preferedDeliveryDate,preferences,userEmail
-            ,laundromatEmail,laundromatName,laundromatAddress,orderStatus,ownerID,customerID,customerAddress,ownerPhone,customerPhone)
+            ,laundromatEmail,laundromatName,laundromatAddress,orderStatus,ownerID,customerID,customerAddress,ownerPhone,customerPhone,pickUpTime)
             VALUES('${req.body.preferedDeliveryDate}','${req.body.preferences}','${req.user.email}',
-            '${laundromatEmail}','${laundromatName}','${address}','Placed','${ID}','${req.user.ID}','${req.user.address}','${ownerPhone}','${req.user.phone_number}');`;
+            '${laundromatEmail}','${laundromatName}','${address}','Placed','${ID}','${req.user.ID}','${req.user.address}','${ownerPhone}','${req.user.phone_number}','${timeAndDate}');`;
     
         db.query(sql,(err,results)=>{
             if(err) throw err;

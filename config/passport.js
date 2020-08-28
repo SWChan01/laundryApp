@@ -1,6 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt=require('bcrypt');
 const User=require("../model/User");
+const Laundromat=require("../model/Laundromats");
 
 module.exports=(passport,database)=>{
 
@@ -13,7 +14,7 @@ module.exports=(passport,database)=>{
 
 		//if no customer is found, it must be an owner
 		if(!res.length){
-			let res2=await User.getOwnerByID(ID);
+			let res2=await Laundromat.getOwnerByID(ID);
 			return done(null,res2[0]);
 		}
 
@@ -39,7 +40,7 @@ module.exports=(passport,database)=>{
 				})
 			}
 			else{
-				let result2=await User.getOwnerByEmail(email);
+				let result2=await Laundromat.getOwnerByEmail(email);
 				if(!result2.length){
 					req.flash("message","Invalid email or password! Please try again!");
 					return done(null,false);

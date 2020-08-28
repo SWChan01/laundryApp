@@ -1,17 +1,15 @@
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const url = require('url');
 const db=require('../db');
+const Laundromat=require("../model/Laundromats");
 
 //searches for claimed laundromats that matches the given zipcode and renders it
-exports.zipcodeSearch=(req,res)=>{
+exports.zipcodeSearch=async (req,res)=>{
 
-    let sql=`SELECT * FROM claimedLaundromats WHERE zipcode='${req.body.zipcode}'`;
 
-    db.query(sql,(err,result)=>{
-        if(err) throw err;
-        console.log(JSON.stringify(result));
-        res.render('../views/showLaundromats.hbs',result);
-    })
+    let result=await Laundromat.getLaundromatsByZipcode(req.body.zipcode);
+    res.render('../views/showLaundromats.hbs',result);
+    
 
 };
     

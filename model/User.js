@@ -12,17 +12,6 @@ exports.getCustomerByID=(ID)=>{
 }
 
 
-exports.getOwnerByID=(ID)=>{
-    const sql=`SELECT * FROM claimedLaundromats WHERE ID='${ID}';`;
-    return new Promise((resolve,reject)=>{
-        db.query(sql,(err,res)=>{
-            if(err) reject(err)
-            resolve(res);
-        })
-    })
-}
-
-
 exports.getCustomerByEmail=(email)=>{
     const sql=`SELECT * FROM User WHERE email='${email}';`;
     return new Promise((resolve,reject)=>{
@@ -33,16 +22,6 @@ exports.getCustomerByEmail=(email)=>{
     })
 }
 
-
-exports.getOwnerByEmail=(email)=>{
-    const sql=`SELECT * FROM claimedLaundromats WHERE email='${email}';`;
-    return new Promise((resolve,reject)=>{
-        db.query(sql,(err,res)=>{
-            if(err) reject(err)
-            resolve(res);
-        })
-    })
-}
 
 
 exports.updateNameByID=(newValue,ID)=>{

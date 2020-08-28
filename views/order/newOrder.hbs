@@ -1,16 +1,3 @@
-<script>
-    $(document).ready(function(){
-        let string=window.location.href;
-        let address=decodeURI(string.split("name=")[1].split("address=")[1]);
-        console.log(address);
-
-        
-    });
-</script>
-
-
-
-
 <div class="container">
     <form action="" method="POST">
         <div class="form-group">
@@ -19,7 +6,24 @@
         </div>
 
         <div class="form-group">
-            <label for="">Add any comments here</label>
+            <label for="">Select laundry pick up date </label>
+            <input type="date" name="pick_up_date" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="">Select a range for laundry pick up time</label>      
+            <div id="time-range">
+                <h5 class="text-center">Time Range: <span class="slider-time">9:00 AM</span> - <span class="slider-time2">5:00 PM</span></h5>
+                <div class="sliders_step1">
+                    <div id="slider-range"></div>
+                </div>
+            </div>
+            <input type="text" name="pick_up_time" class="form-control" style="display: none;" id="timeRange">
+        </div>
+        <button type="button" class="btn btn-primary mx-auto d-block" id="confirmTime">Confirm</button>
+
+        <div class="form-group">
+            <label for="">Add any comments here (It can be pick up instructions,laundry washing/drying preferences)</label>
             <textarea class="form-control" rows="5" id="directions" name="preferences"></textarea>
         </div>
 
@@ -27,3 +31,9 @@
     </form>
 
 </div>
+
+
+
+
+<link rel="stylesheet" href="/assets/css/newOrder.css">
+<script src="/assets/js/newOrder.js"> </script>
