@@ -1,5 +1,13 @@
 const db=require("../db");
 
+exports.getAllOrders=()=>{
+    return new Promise ((resolve,rejectr)=>{
+        db.query("SELECT * FROM orders",(err,res)=>{
+            if(err) reject(err);
+            resolve(res);
+        })
+    })
+}
 
 exports.getOrderByUserID=(ID)=>{
     let sql=`SELECT * FROM orders WHERE customerID='${ID}'`;

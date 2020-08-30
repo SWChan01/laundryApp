@@ -5,12 +5,9 @@ const transporter=require("../config/mailer").transporter;
 const Orders=require("../model/orders");
 
 //routes for /api/orders, return all orders in db
-router.get("/",(req,res)=>{
-    let sql=`SELECT * FROM orders;`
-    db.query(sql,(err,results)=>{
-        if (err) throw err;
-        res.json(results);
-    });
+router.get("/",async (req,res)=>{
+    let result=await Orders.getAllOrders();
+    res.json(result);
 });
 
 //routes for /api/orders/userID,return all orders of that user
