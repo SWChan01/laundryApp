@@ -7,7 +7,6 @@ exports.newOrderPost=(req,res)=>{
     let x=`SELECT * FROM claimedLaundromats WHERE laundromatAddress='${address}'`;
     db.query(x,(err,res)=>{
         if(err) throw err;
-        console.log(res);
 
         let laundromatEmail=res[0].email;
         let laundromatName=res[0].laundromatName;
@@ -92,12 +91,9 @@ exports.submitReview=(req,res)=>{
 
                 //divide by the new total
                 total++;
-                console.log("total sum"+total_sum);
-                console.log("total"+total)
                 let newRating=total_sum/total;
 
                 //update rating and total ratings
-                console.log("new rating:"+newRating)
                 db.query(`UPDATE claimedLaundromats SET rating='${newRating}',ratingNumbers='${total}' WHERE ID='${laundromatID}'`);
             }
             
@@ -120,7 +116,6 @@ exports.submitReview=(req,res)=>{
 
 
 exports.orderDeliveryTime=(req,res)=>{
-    console.log(JSON.stringify(req.body));
 
     //pickup the order,input estimated delivery time
     Order.pickupOrder(req.body.orderID);

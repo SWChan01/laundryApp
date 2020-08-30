@@ -1,7 +1,5 @@
 $(document).ready(function(){
     let string=window.location.href;
-    let address=decodeURI(string.split("name=")[1].split("address=")[1]);
-    console.log(address);
 
     $("#slider-range").slider({
         range: true,

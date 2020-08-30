@@ -40,8 +40,6 @@ exports.updateNameByID=(newValue,ID)=>{
 
         }
     });
-
-    console.log("returning null...");
     return null;
 }
 

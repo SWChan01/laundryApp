@@ -37,22 +37,18 @@ exports.registerCustomer=(req,res)=>{
             })
         })
         .then(()=>{
-            console.log(req.body);
 
             let sql;
             //customer
             if(!req.body.laundromatName){
                 let address=`${req.body.street} ${req.body.apt}, ${req.body.city} , ${req.body.state} , ${req.body.zipcode}`;
-                console.log(address);
                 bcrypt.hash(req.body.password,10,(err,hash)=>{
                     sql="INSERT INTO User (name,password,email,address,phone_number) VALUES ('" + 
                     req.body.name + "', '" + hash  +"', '"+ req.body.email + "', '" + address + "', '" +
                     req.body.phone_number + "')";
 
-                    console.log(sql);
                     database.query(sql, function (err, result) {
                         if (err) throw err;
-                        console.log("1 record inserted");
                     });
                     req.flash("message","Congratulations! You have successfully signed up as a customer!")
                     res.redirect('/');
@@ -78,13 +74,11 @@ exports.registerCustomer=(req,res)=>{
 
 
 exports.searchLaundromat=(req,res)=>{
-    console.log(req.body.zipcode);
     let request=`https://maps.googleapis.com/maps/api/place/textsearch/json?query=laundromats in zipcode ${req.body.zipcode}&key=${process.env.API_KEY}`;
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
             let result=JSON.parse(xmlHttp.responseText);
-            console.log(result);
             res.render('../views/showLaundromats2.hbs',result);
         }
     }
@@ -133,7 +127,6 @@ exports.registerOwner=(req,res)=>{
                 sql=`INSERT INTO claimedLaundromats (laundromatName,laundromatAddress,ownerName,email,password,ownerPhone,zipcode) VALUES ('${req.body.laundromatName}'
                 ,'${req.body.laundromatAddress}','${req.body.name}','${req.body.email}','${hash}','${req.body.phone_number}','${req.body.zipcode}');`;
 
-                console.log(sql);
                 database.query(sql, function (err, result) {
                     if (err) throw err;
                 });
@@ -143,7 +136,6 @@ exports.registerOwner=(req,res)=>{
         })
         
         .catch(msg=>{
-            console.log(msg)
                 req.flash("message",msg);
                 res.redirect('/register/pickLaundromat');
         });

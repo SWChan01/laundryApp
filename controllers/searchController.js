@@ -17,9 +17,7 @@ exports.zipcodeSearch=async (req,res)=>{
 exports.laundromatSearch=(req,res)=>{
 
     const laundromatName=req.params.name;
-    const laundromatAddress=req.params.address;
     let sql=`SELECT * FROM claimedLaundromats WHERE laundromatName='${laundromatName}';`;
-    console.log(sql);
     
     db.query(sql,(err,response)=>{
         let isClaimed=true;

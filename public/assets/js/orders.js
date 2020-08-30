@@ -43,19 +43,6 @@
     });
 
 
-    // $(".show").click((e)=>{
-    //     console.log("iroeghioerioger")
-    //     console.log($(e).text());
-    //     $("#pickUpTime").text(result[i].pickUpTime);
-    //     if(result[i].estimatedDeliveryTime==null || result[i].estimatedDeliveryTime==undefined) $("#deliveryTime").text("Not available");
-    //     else $("#deliveryTime").text(result[i].estimatedDeliveryTime);
-    //     if(result[i].orderPrice==null || result[i].orderPrice==undefined) $("#priceOfOrder").text("Not availble");
-    //     else $("#priceOfOrder").text(result[i].orderPrice);
-
-
-    //     $("#info").dialog("open");
-    // });
-
     $(document).on("click",".show",(e)=>{
 
 
@@ -111,7 +98,6 @@
 
 
     $.ajax({url:'/api/orders/userOrder', success: function(result){
-        console.log(result);
 
         if(status=="customer"){
             let header="<th>Order ID</th><th>Order status</th><th>Laundromat name</th><th>Laundromat phone#</th><th>Laundromat address</th><th>Comments</th><th>Pick up time,delivery,price informations</th><th>Actions</th>";
@@ -127,8 +113,6 @@
 
 
         for(let i=0;i<result.length;i++){
-
-            console.log(status);
 
 
             
@@ -177,10 +161,8 @@
 
     $(document).on("click",".option",(e)=>{
         let option=$(e.target).text();
-        console.log(option);
         let target = ($(e.target).parent().parent().parent().prev().prev().prev().prev().prev().prev().prev().text());
         if(option=="Accept order"){
-            console.log(target);
             
             $.ajax({
                 url:`/api/orders/acceptOrder/${target}`,
@@ -195,7 +177,6 @@
         }
 
         else if(option=="Notify pickup"){
-            console.log(target);
             
             $.ajax({
                 url:`/api/orders/notifyPickup/${target}`,
@@ -212,8 +193,6 @@
         }
         
         else if(option=="Cancel order"){
-            console.log("reguhoigre")
-            console.log(target);
 
             $.ajax({
                 url:`/api/orders/cancelOrder/${target}`,
@@ -223,14 +202,12 @@
                 },
                 error:function(err){
                     location.reload();
-                    console.log(err);
                 }
             })
 
         }
 
         else if(option=="Order delivered"){
-            console.log("order delivered")
             $.ajax({
                 url:`/api/orders/orderDelivered/${target}`,
                 type:'PUT',
@@ -239,13 +216,11 @@
                 },
                 error:function(err){
                     location.reload();
-                    console.log(err);
                 }
             })
         }
 
         else if(option=="Rate service"){
-            console.log("rating service");
             $.ajax({
                 url:`/api/orders/rateOrder/${target}`,
                 type:'PUT',
@@ -256,7 +231,6 @@
                 },
                 error:function(err){
                     location.reload();
-                    console.log(err);
                 }
             });
         }
