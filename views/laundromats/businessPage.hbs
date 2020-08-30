@@ -11,8 +11,7 @@
                     <h4>Owner name:      <i>{{results.0.ownerName}}</i></h4>
                     <h4>Laundromat email:    <i>{{results.0.email}}</i></h4>
                     <h4>Phone number:     <i>{{results.0.ownerPhone}}</i></h4>
-                    <h4>Price per pound: <i>{{results.0.pricePerPound}}</i></h4>
-                    <h4>Rating (out of 5): <i>{{results.0.rating}},based on {{results.0.ratingNumbers}} responses</i></h4>
+                    <h4>Rating (out of 5): <i>{{#if results.0.rating}}{{results.0.rating}},based on {{results.0.ratingNumbers}} responses{{else}}No reviews yet!{{/if}}</i></h4>
                 </div>
                 <div class="mt-5">
                     <a href="/newOrder/name={{results.0.laundromatName}}address={{results.0.laundromatAddress}}"><button class="btn btn-primary">Start an order!</button></a>

@@ -1,7 +1,7 @@
 const db=require("../db");
 
 exports.getAllOrders=()=>{
-    return new Promise ((resolve,rejectr)=>{
+    return new Promise ((resolve,reject)=>{
         db.query("SELECT * FROM orders",(err,res)=>{
             if(err) reject(err);
             resolve(res);

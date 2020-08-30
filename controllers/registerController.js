@@ -42,10 +42,11 @@ exports.registerCustomer=(req,res)=>{
             let sql;
             //customer
             if(!req.body.laundromatName){
-
+                let address=`${req.body.street} ${req.body.apt}, ${req.body.city} , ${req.body.state} , ${req.body.zipcode}`;
+                console.log(address);
                 bcrypt.hash(req.body.password,10,(err,hash)=>{
                     sql="INSERT INTO User (name,password,email,address,phone_number) VALUES ('" + 
-                    req.body.name + "', '" + hash  +"', '"+ req.body.email + "', '" + req.body.address + "', '" +
+                    req.body.name + "', '" + hash  +"', '"+ req.body.email + "', '" + address + "', '" +
                     req.body.phone_number + "')";
 
                     console.log(sql);
