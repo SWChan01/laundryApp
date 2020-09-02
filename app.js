@@ -83,7 +83,7 @@ app.get('/register',(req,res)=>{
 app.get('/register/registerCustomer',(req,res)=>{
     res.render('register/register_customer',{message:req.flash("message")});
 });
-app.post('/register/registerCustomer',registerController.registerCustomer);
+app.post('/register/registerCustomer',registerController.register);
 
 app.get('/register/pickLaundromat',(req,res)=>{
     res.render('register/pickLaundromat',{message:req.flash("message")});
@@ -95,7 +95,7 @@ app.get('/register/ownerRegister/:laundromatName/:laundromatAddress',(req,res)=>
     res.render('register/register_owner',{message:req.flash("message")});
 });
 
-app.post('/register/ownerRegister/:laundromatName/:laundromatAddress',registerController.registerOwner);
+app.post('/register/ownerRegister/:laundromatName/:laundromatAddress',registerController.register);
 
 
 

@@ -4,6 +4,8 @@ const Order=require('../model/orders');
 exports.newOrderPost=(req,res)=>{
     let address=decodeURI((req.url).split("name=")[1].split("address=")[1]);
 
+    console.log(JSON.stringify(req.body));
+
     let x=`SELECT * FROM claimedLaundromats WHERE laundromatAddress='${address}'`;
     db.query(x,(err,res)=>{
         if(err) throw err;
@@ -118,8 +120,32 @@ exports.submitReview=(req,res)=>{
 exports.orderDeliveryTime=(req,res)=>{
 
     //pickup the order,input estimated delivery time
+
+    console.log(req.body.estimatedDeliveryTime);
+
+    let timeSplit = req.body.estimatedDeliveryTime.split(':');
+    
+    let hours = timeSplit[0];
+    let minutes = timeSplit[1];
+    let meridian;
+    if (hours > 12) {
+        meridian = 'PM';
+        hours -= 12;
+    } else if (hours < 12) {
+        meridian = 'AM';
+        if (hours == 0) {
+        hours = 12;
+        }
+    } else {
+        meridian = 'PM';
+    }
+
+
+    let realTime=hours+":"+minutes+meridian;
+
+
     Order.pickupOrder(req.body.orderID);
-    Order.updateDeliveryTimebyID(req.body.estimatedDeliveryTime,req.body.orderID);
+    Order.updateDeliveryTimebyID(realTime,req.body.orderID);
     Order.putInPrice(req.body.orderPrice,req.body.orderID);
 
     req.flash("message","Success!");

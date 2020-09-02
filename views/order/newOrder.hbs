@@ -2,7 +2,7 @@
     <form action="" method="POST">
         <div class="form-group">
             <label for="">Select laundry pick up date </label>
-            <input type="date" name="pick_up_date" class="form-control">
+            <input type="date" name="pick_up_date" class="form-control" required>
         </div>
 
         <div class="form-group">
@@ -15,12 +15,11 @@
             </div>
             <input type="text" name="pick_up_time" class="form-control" style="display: none;" id="timeRange">
         </div>
-        <button type="button" class="btn btn-primary mx-auto d-block" id="confirmTime">Confirm</button>
-
+        <input type="button" class="btn btn-primary mx-auto d-block" id="confirmTime" value="Confirm" required>
 
         <div class="form-group">
-            <label for="">Select prefered delivery date</label>
-            <input type="date" name="preferedDeliveryDate" class="form-control">
+            <label for="">Select delivery date</label>
+            <input type="date" name="preferedDeliveryDate" class="form-control" required>
         </div>
 
         <div class="form-group">

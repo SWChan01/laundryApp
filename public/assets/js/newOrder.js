@@ -66,7 +66,6 @@ $(document).ready(function(){
         $('#slider-range').slider('disable');
 
         let string= $('.slider-time').text()+" to "+$('.slider-time2').text();
-        console.log(string);
         $("#timeRange").val(`${string}`);
 
 

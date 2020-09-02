@@ -3,6 +3,32 @@
     let userEmail;
     var status;
 
+    function convertDate(inStr){
+        if((typeof inStr == 'undefined') || (inStr == null) || 
+            (inStr.length <= 0)) {
+            return '';
+            }
+            var year = inStr.substring(0, 4);
+            var month = inStr.substring(5, 7);
+            var day = inStr.substring(8, 10);
+            return month + '/' + day + '/' + year;
+    }
+
+
+    function findOrder(ID,result){
+
+        return new Promise((resolve,reject)=>{
+            result.forEach(element => {
+                if(element.orderID==ID){
+                    console.log(element)
+                    resolve(element);
+                }
+            });
+        })
+    }
+
+
+
     $("#dialog").dialog({
         autoOpen:false,
         show: {
@@ -50,27 +76,19 @@
         $.ajax({url:'/api/orders',success:(result)=>{
             let i=$(e.target).attr("id");
 
+            findOrder(i,result).then((order)=>{
+                let pickupdate=convertDate(order.pickUpTime.split("at")[1].split(" ")[1]);
+                let pickuptime=order.pickUpTime.split("at")[0];
+                $("#pickUpDate").text(pickupdate);
+                $("#pickUpTime").text(pickuptime);
+                $("#deliveryDate").text(convertDate(order.preferedDeliveryDate));
+                if(order.estimatedDeliveryTime==null) $("#deliveryTime").text("Not available");
+                else $("#deliveryTime").text(order.estimatedDeliveryTime);
+                if(order.orderPrice==null) $("#priceOfOrder").text("Not availble");
+                else $("#priceOfOrder").text("$"+order.orderPrice);
 
-            let pickupdate=convertDate(result[i].pickUpTime.split("at")[1].split(" ")[1]);
-            let pickuptime=result[i].pickUpTime.split("at")[0];
-
-
-
-
-
-
-
-            $("#pickUpDate").text(pickupdate);
-            $("#pickUpTime").text(pickuptime);
-            $("#deliveryDate").text(convertDate(result[i].preferedDeliveryDate));
-            if(result[i].estimatedDeliveryTime==null || result[i].estimatedDeliveryTime==undefined) $("#deliveryTime").text("Not available");
-            else $("#deliveryTime").text(result[i].estimatedDeliveryTime);
-            if(result[i].orderPrice==null || result[i].orderPrice==undefined) $("#priceOfOrder").text("Not availble");
-            else $("#priceOfOrder").text(result[i].orderPrice);
-
-            $("#info").dialog("open");
-
-
+                $("#info").dialog("open");
+            })
 
         }})
 
@@ -84,18 +102,6 @@
     }});
 
 
-    function convertDate(inStr){
-        if((typeof inStr == 'undefined') || (inStr == null) || 
-            (inStr.length <= 0)) {
-            return '';
-            }
-            var year = inStr.substring(0, 4);
-            var month = inStr.substring(5, 7);
-            var day = inStr.substring(8, 10);
-            return month + '/' + day + '/' + year;
-    }
-
-
 
     $.ajax({url:'/api/orders/userOrder', success: function(result){
 
@@ -103,7 +109,7 @@
             let header="<th>Order ID</th><th>Order status</th><th>Laundromat name</th><th>Laundromat phone#</th><th>Laundromat address</th><th>Comments</th><th>Pick up time,delivery,price informations</th><th>Actions</th>";
             $("#th").html(header);
         }else if(status=="owner"){
-            let header="<th>Order ID</th><th>Order status</th><th>Customer name</th><th>Cusomter email</th><th>Customer address</th><th>Comments</th><th>Pick up time,delivery,price informations</th><th>Actions</th>";
+            let header="<th>Order ID</th><th>Order status</th><th>Customer phone#</th><th>Cusomter email</th><th>Customer address</th><th>Comments</th><th>Pick up time,delivery,price informations</th><th>Actions</th>";
             $("#th").html(header);
         }
 
@@ -126,7 +132,7 @@
                 body+="<td>"+result[i].ownerPhone+"</td>";
                 body+="<td>"+result[i].laundromatAddress+"</td>";
                 body+="<td>"+result[i].preferences+"</td>";
-                body+=`<td><button class="show btn btn-primary" id="${i}">view</button></td>`;
+                body+=`<td><button class="show btn btn-primary" id="${result[i].orderID}">view</button></td>`;
                 body+="<td>"+document.getElementById("customerDropdown").innerHTML+"</td>";
 
                 body+="</tr>";
@@ -141,11 +147,11 @@
                     body+=`<tr>`;
                     body+="<td>"+result[i].orderID+"</td>";
                     body+="<td>"+result[i].orderStatus+"</td>";
-                    body+="<td>"+result[i].customerName+"</td>"
+                    body+="<td>"+result[i].customerPhone+"</td>"
                     body+="<td>"+result[i].userEmail+"</td>";
                     body+="<td class=address>"+result[i].customerAddress+"</td>";
                     body+="<td>"+result[i].preferences+"</td>";
-                    body+=`<td><button class="show btn btn-primary" id="${i}">view</button></td>`;
+                    body+=`<td><button class="show btn btn-primary" id="${result[i].orderID}">view</button></td>`;
                     body+="<td>"+document.getElementById("ownerDropdown").innerHTML+"</td>";
 
                     body+="</tr>";
@@ -168,7 +174,7 @@
                 url:`/api/orders/acceptOrder/${target}`,
                 type:'PUT',
                 success:function(){
-                    location.reload();
+                    //location.reload();
                 },
                 error:()=>{
                     location.reload();
@@ -227,7 +233,6 @@
                 success:function(res){
                     $("#containID").val(`${target}`);
                     $( "#dialog" ).dialog( "open" );
-                    //location.reload();
                 },
                 error:function(err){
                     location.reload();
