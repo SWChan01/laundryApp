@@ -8,7 +8,7 @@ exports.getCustomerByID=(ID)=>{
             if(err) reject(err)
             resolve(res);
         })
-    })
+    }).catch(err=>{console.log(err)});
 }
 
 
@@ -19,7 +19,7 @@ exports.getCustomerByEmail=(email)=>{
             if(err) reject(err)
             resolve(res);
         })
-    })
+    }).catch(err=>{console.log(err)});
 }
 
 

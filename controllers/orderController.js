@@ -4,7 +4,6 @@ const Order=require('../model/orders');
 exports.newOrderPost=(req,res)=>{
     let address=decodeURI((req.url).split("name=")[1].split("address=")[1]);
 
-    console.log(JSON.stringify(req.body));
 
     let x=`SELECT * FROM claimedLaundromats WHERE laundromatAddress='${address}'`;
     db.query(x,(err,res)=>{
@@ -121,7 +120,6 @@ exports.orderDeliveryTime=(req,res)=>{
 
     //pickup the order,input estimated delivery time
 
-    console.log(req.body.estimatedDeliveryTime);
 
     let timeSplit = req.body.estimatedDeliveryTime.split(':');
     

@@ -13,7 +13,6 @@ exports.register=(req,res)=>{
 
     //check to see if it is owner register or cusotmer register
     let link=url.parse(req.url,true).pathname;
-    console.log(link);
 
 
     //check if email/address/phone_number is already registered

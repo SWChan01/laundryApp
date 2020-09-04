@@ -20,7 +20,6 @@ $(document).ready(()=>{
         return new Promise((resolve,reject)=>{
             result.forEach(element => {
                 if(element.orderID==ID){
-                    console.log(element)
                     resolve(element);
                 }
             });
@@ -110,9 +109,6 @@ $(document).ready(()=>{
         }
 
         else{
-
-            console.log(JSON.stringify(result))
-
 
             if(status=="customer"){
                 let header="<th>Order ID</th><th>Order status</th><th>Laundromat name</th><th>Laundromat phone#</th><th>Laundromat address</th><th>Comments</th><th>Pick up time,delivery,price informations</th><th>Actions</th>";

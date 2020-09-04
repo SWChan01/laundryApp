@@ -6,7 +6,7 @@ exports.getAllOrders=()=>{
             if(err) reject(err);
             resolve(res);
         })
-    })
+    }).catch(err=>{console.log(err)});
 }
 
 exports.getOrderByUserID=(ID)=>{
@@ -31,7 +31,7 @@ exports.getOrderByUserID=(ID)=>{
                 resolve(results);
             }
         });
-    });
+    }).catch(err=>{console.log(err)});
 
 }
 
@@ -43,7 +43,7 @@ exports.getOrderByOrderID=(ID)=>{
             else resolve(results);
         });
             
-    });
+    }).catch(err=>{console.log(err)});
 }
 
 
@@ -55,7 +55,7 @@ exports.acceptOrder=(ID)=>{
             if(err) reject(err);
             resolve(result);
         });
-    });
+    }).catch(err=>{console.log(err)});
 }
 
 
@@ -67,7 +67,7 @@ exports.pickupOrder=(ID)=>{
             if(err) reject(err);
             resolve(result);
         });
-    });
+    }).catch(err=>{console.log(err)});
 }
 
 exports.deleteOrderByID=(ID)=>{
@@ -77,7 +77,7 @@ exports.deleteOrderByID=(ID)=>{
             if(err) reject (err);
             resolve(result);
         });
-    });
+    }).catch(err=>{console.log(err)});
 }
 
 exports.deliverOrder=(ID)=>{
@@ -87,7 +87,7 @@ exports.deliverOrder=(ID)=>{
             if(err) reject (err);
             resolve(result);
         })
-    })
+    }).catch(err=>{console.log(err)});
 }
 
 exports.updateDeliveryTimebyID=(time,ID)=>{
@@ -97,7 +97,7 @@ exports.updateDeliveryTimebyID=(time,ID)=>{
             if(err) reject(err);
             resolve(result);
         })
-    })
+    }).catch(err=>{console.log(err)});
 }
 
 
@@ -108,5 +108,5 @@ exports.putInPrice=(price,ID)=>{
             if(err) reject(err);
             resolve(result);
         })
-    })
+    }).catch(err=>{console.log(err)});
 }

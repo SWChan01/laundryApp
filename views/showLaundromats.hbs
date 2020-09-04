@@ -3,7 +3,6 @@
         $.ajax({url:"/api/userData/getAllLaundromats",success:(res)=>{
             let body="<ul>"
             for(let i=0;i<res.length;i++){
-                console.log(JSON.stringify(res));
                 body+=`<a href="laundromatPage/${res[i].laundromatName}/${res[i].laundromatAddress}"><li>${res[i].laundromatName} at ${res[i].laundromatAddress}</li></a>`;
                 
             }

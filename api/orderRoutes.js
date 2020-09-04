@@ -11,7 +11,7 @@ router.get("/",async (req,res)=>{
 });
 
 //routes for /api/orders/userID,return all orders of that user
-router.get("/userOrder", async (req,res)=>{
+router.get("/userOrder", (req,res)=>{
 
     Orders.getOrderByUserID(req.user.ID).then((results)=>{
         res.json(results);

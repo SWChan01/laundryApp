@@ -7,7 +7,7 @@ exports.getAllLaundromats=()=>{
             if(err) reject(err)
             resolve(res);
         })
-    })
+    }).catch(err=>{console.log(err)});
 }
 
 
@@ -18,7 +18,7 @@ exports.getOwnerByID=(ID)=>{
             if(err) reject(err)
             resolve(res);
         })
-    })
+    }).catch(err=>{console.log(err)});
 }
 
 exports.getOwnerByEmail=(email)=>{
@@ -28,7 +28,7 @@ exports.getOwnerByEmail=(email)=>{
             if(err) reject(err)
             resolve(res);
         })
-    })
+    }).catch(err=>{console.log(err)});
 }
 
 
@@ -39,5 +39,5 @@ exports.getLaundromatsByZipcode=(zipcode)=>{
             if(err) reject(err)
             resolve(res);
         })
-    })
+    }).catch(err=>{console.log(err)});
 }

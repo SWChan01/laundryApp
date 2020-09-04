@@ -56,10 +56,6 @@ app.use('/api',router);
 
 
 
-
-
-//routes
-
 app.get('/', function (req, res) {
     res.render('home',{message:req.flash("message")});
 });
