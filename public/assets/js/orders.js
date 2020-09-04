@@ -1,5 +1,5 @@
 
-
+$(document).ready(()=>{
     let userEmail;
     var status;
 
@@ -105,63 +105,99 @@
 
     $.ajax({url:'/api/orders/userOrder', success: function(result){
 
-        if(status=="customer"){
-            let header="<th>Order ID</th><th>Order status</th><th>Laundromat name</th><th>Laundromat phone#</th><th>Laundromat address</th><th>Comments</th><th>Pick up time,delivery,price informations</th><th>Actions</th>";
-            $("#th").html(header);
-        }else if(status=="owner"){
-            let header="<th>Order ID</th><th>Order status</th><th>Customer phone#</th><th>Cusomter email</th><th>Customer address</th><th>Comments</th><th>Pick up time,delivery,price informations</th><th>Actions</th>";
-            $("#th").html(header);
+        if(!result.length){
+            $("#first").html(`<h1 class="text-center">You currently have no order available!<h1>`);
         }
 
+        else{
 
+            console.log(JSON.stringify(result))
 
-        let body="";
-
-
-        for(let i=0;i<result.length;i++){
-
-
-            
 
             if(status=="customer"){
-
-                body+=`<tr>`;
-                body+="<td>"+result[i].orderID+"</td>";
-                body+="<td>"+result[i].orderStatus+"</td>";
-                body+="<td>"+result[i].laundromatName+"</td>";
-                body+="<td>"+result[i].ownerPhone+"</td>";
-                body+="<td>"+result[i].laundromatAddress+"</td>";
-                body+="<td>"+result[i].preferences+"</td>";
-                body+=`<td><button class="show btn btn-primary" id="${result[i].orderID}">view</button></td>`;
-                body+="<td>"+document.getElementById("customerDropdown").innerHTML+"</td>";
-
-                body+="</tr>";
+                let header="<th>Order ID</th><th>Order status</th><th>Laundromat name</th><th>Laundromat phone#</th><th>Laundromat address</th><th>Comments</th><th>Pick up time,delivery,price informations</th><th>Actions</th>";
+                $("#th").html(header);
+            }else if(status=="owner"){
+                let header="<th>Order ID</th><th>Order status</th><th>Customer phone#</th><th>Cusomter email</th><th>Customer address</th><th>Comments</th><th>Pick up time,delivery,price informations</th><th>Actions</th>";
+                $("#th").html(header);
             }
-
-
-
-            else if(status=="owner"){
-
-                if(result[i].orderStatus!="Delivered"){
-
+    
+    
+    
+            let body="";
+    
+            for(let i=0;i<result.length;i++){
+    
+    
+                
+    
+                if(status=="customer"){
+    
                     body+=`<tr>`;
                     body+="<td>"+result[i].orderID+"</td>";
                     body+="<td>"+result[i].orderStatus+"</td>";
-                    body+="<td>"+result[i].customerPhone+"</td>"
-                    body+="<td>"+result[i].userEmail+"</td>";
-                    body+="<td class=address>"+result[i].customerAddress+"</td>";
+                    body+="<td>"+result[i].laundromatName+"</td>";
+                    body+="<td>"+result[i].ownerPhone+"</td>";
+                    body+="<td>"+result[i].laundromatAddress+"</td>";
                     body+="<td>"+result[i].preferences+"</td>";
                     body+=`<td><button class="show btn btn-primary" id="${result[i].orderID}">view</button></td>`;
-                    body+="<td>"+document.getElementById("ownerDropdown").innerHTML+"</td>";
-
+                    body+="<td>"+document.getElementById("customerDropdown").innerHTML+"</td>";
+    
                     body+="</tr>";
                 }
+    
+    
+    
+                else if(status=="owner"){
+                        body+=`<tr>`;
+                        body+="<td>"+result[i].orderID+"</td>";
+                        body+="<td>"+result[i].orderStatus+"</td>";
+                        body+="<td>"+result[i].customerPhone+"</td>"
+                        body+="<td>"+result[i].userEmail+"</td>";
+                        body+="<td class=address>"+result[i].customerAddress+"</td>";
+                        body+="<td>"+result[i].preferences+"</td>";
+                        body+=`<td><button class="show btn btn-primary" id="${result[i].orderID}">view</button></td>`;
+                        body+="<td>"+document.getElementById("ownerDropdown").innerHTML+"</td>";
+    
+                        body+="</tr>";
+
+                }
             }
+    
+    
+    
+            $("#tbody").html(body);
+            
+            
+            var styles = `
+                    th{
+                        padding-left:30px;
+                        background-color: lightskyblue;
+                        color: black;
+                        height: 30px;
+                    }
+                    tr{
+                        border-bottom: 1px solid black;
+                    }
+                    td{
+                        height: 50px;
+                        word-wrap: break-word;         /* All browsers since IE 5.5+ */
+                        overflow-wrap: break-word;
+                    }
+            `
+
+
+
+            var styleSheet = document.createElement("style");
+            styleSheet.type = "text/css";
+            styleSheet.innerText = styles;
+            document.head.appendChild(styleSheet);
+
+
+
         }
 
 
-
-        $("#tbody").html(body);
     }});
 
 
@@ -242,3 +278,5 @@
 
     });
 
+
+})

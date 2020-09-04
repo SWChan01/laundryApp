@@ -21,7 +21,7 @@
         <div class="searchBox card card-body">
             <form action="/searchRegisteredLaundromat" method="POST">
                 <div class="form-group">
-                    <label for="" class="text">Enter your zipcode to find laundromats near you!</label>
+                    <label for="" class="text">Enter your zipcode to find registered laundromats near you!</label>
                     <div class="input-group">
                         <input class="mx-auto d-block form-control" type="text" name="zipcode" placeholder="Enter your zipcode">
                         <div class="input-group-append">
@@ -124,13 +124,10 @@
 <style type="text/css">
     .background{
         background-image: url('/images/background2.jpg');
-        height: 700px;
-        
-
+        height: 800px;
         background-position: center;
-        background-repeat: no-repeat;
         background-size: cover;
-        position:relative
+        position:relative;
     }
     .searchBox{
             opacity: 0.7;
@@ -156,7 +153,7 @@
         text-indent:40px;
     }
 
-    @media screen and (max-width:600px){
+    @media screen and (max-width:1200px){
         .arrow{
             display: none;
         }

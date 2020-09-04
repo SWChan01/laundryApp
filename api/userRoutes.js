@@ -2,6 +2,7 @@ const express=require('express');
 const router=express.Router();
 const db=require("../db");
 const User=require("../model/User");
+const Laundromat=require("../model/Laundromats");
 
 //routes for /api/userData
 router.get('/', (req, res)=> {
@@ -63,6 +64,11 @@ router.put('/changePhone/:newPhone/:userID',(req,res) => {
 
 });
 
+
+router.get("/getAllLaundromats",async(req,res)=>{
+    let result=await Laundromat.getAllLaundromats();
+    res.json(result);
+});
 
 
 module.exports=router;

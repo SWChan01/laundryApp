@@ -1,13 +1,43 @@
+<script>
+    $(document).ready(()=>{
+        $.ajax({url:"/api/userData/getAllLaundromats",success:(res)=>{
+            let body="<ul>"
+            for(let i=0;i<res.length;i++){
+                console.log(JSON.stringify(res));
+                body+=`<a href="laundromatPage/${res[i].laundromatName}/${res[i].laundromatAddress}"><li>${res[i].laundromatName} at ${res[i].laundromatAddress}</li></a>`;
+                
+            }
+
+            body+="</ul>";
+
+            $("#showAll").html(body);
+        }})
+    })
+</script>
+
+
+
+
+
 <div class="container">
     <ul class="result_list">
         {{#if this.0.laundromatName}}
             <h2>Select a laundromat below to place your order</h2>
         {{else}}
-            <h2>Sorry! There is currently no registered laundromats in this zipcode</h2>
+            <h2>Sorry! There is currently no registered laundromats in this zipcode. Here is a list of all the registered laundromats</h2>
+            <div id="showAll">
+
+            </div>
+
+
+
+
+
+
         {{/if}}
         {{#each this}}
             {{#if this.laundromatName}}
-                <a href="laundromatPage/{{this.laundromatName}}/{{this.laundromatAddress}}"><li>{{this.laundromatName}} address:{{this.laundromatAddress}}</li></a>
+                <a href="laundromatPage/{{this.laundromatName}}/{{this.laundromatAddress}}"><li>{{this.laundromatName}} at {{this.laundromatAddress}}</li></a>
             {{/if}}
         {{/each}}
         {{#each results}}
